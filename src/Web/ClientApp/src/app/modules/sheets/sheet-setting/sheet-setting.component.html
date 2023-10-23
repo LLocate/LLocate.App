@@ -1,0 +1,37 @@
+<div fxLayout="column" fxLayoutGap="10px">
+    <div fxLayout='row' fxLayoutGap="5px">
+        <button mat-raised-button color="primary" (click)="openSheetItemSettingDialog()">Add Commitment</button>
+        <button mat-raised-button color="primary" (click)="openSheetItemSettingDialog(true)">Add Installment</button>
+    </div>
+    <mat-accordion *ngIf="!isLoadingNI && !isLoadingI" class="example-headers-align">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Summary
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <app-sheet-setting-summary [installment]="dataSourceI"
+                [nonInstallment]="dataSourceNI"></app-sheet-setting-summary>
+
+        </mat-expansion-panel>
+    </mat-accordion>
+
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" backgroundColor="accent">
+        <mat-tab label="Fixed Commitment/Earning">
+            <ng-template matTabContent>
+                <app-page-loader *ngIf="isLoadingNI"></app-page-loader>
+                <app-sheet-setting-table *ngIf="!isLoadingNI" [dataSource]="dataSourceNI" [isInstallment]="false"
+                    (refreshSheet)="getNonInstallmentAllSheetItemSettings()"></app-sheet-setting-table>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="Installment">
+            <ng-template matTabContent>
+                <app-page-loader *ngIf="isLoadingI"></app-page-loader>
+                <app-sheet-setting-table *ngIf="!isLoadingI" [dataSource]="dataSourceI" [isInstallment]="true"
+                    (refreshSheet)="getInstallmentAllSheetItemSettings()"></app-sheet-setting-table>
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+
+</div>

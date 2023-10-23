@@ -1,0 +1,17 @@
+
+.mat-column-targetAmount {
+    border-right: 1px solid black;
+    text-align: end
+}
+.mat-column-utilized {
+    border-right: 1px solid black;
+    text-align: end
+}
+.mat-column-accumulated {
+    border-right: 1px solid black;
+    text-align: end
+}
+.mat-column-available {
+    border-right: 1px solid black;
+    text-align: end
+}

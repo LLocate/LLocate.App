@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>{{ !sheetItemEntry.id ? 'Add New Item' : 'Update Item' }}</h1>
+<div mat-dialog-content fxLayoutGap="10px">
+    <mat-form-field>
+        <mat-label>Description</mat-label>
+        <input matInput [(ngModel)]="sheetItemEntry.description">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <mat-label>Transaction Date</mat-label>
+        <input [(ngModel)]="sheetItemEntry.transactionDate" matInput [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Allocated Amount (RM)</mat-label>
+        <input matInput [(ngModel)]="sheetItemEntry.amount">
+    </mat-form-field>
+    <mat-checkbox [checked]="markAsComplete" [matTooltip]="'This will set the item to complete and moved to be bottom of the sheet'" (change)="markAsComplete = !markAsComplete">
+        Mark as Complete
+    </mat-checkbox>
+</div>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" [disabled]="isUpdating" (click)='upsert()' cdkFocusInitial>{{
+        sheetItemEntry.id > 0 ? 'Update' :
+        'Create' }}</button>
+</div>

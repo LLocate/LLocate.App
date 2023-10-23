@@ -1,0 +1,8 @@
+<div style="width:100%; text-align: center;"><h2>{{title}}</h2></div>
+<div style="height: 400px; min-height: 400px; height: auto;" >
+    <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="dataSource" [gradient]="gradient"
+        [legend]="showLegend" [legendPosition]="_global.mobileQuery.matches ? legendPositionBelow : legendPositionRight"
+         [labels]="showLabels" [doughnut]="isDoughnut"
+        (select)="onSelect($event)" (activate)="onActivate($event)" (deactivate)="onDeactivate($event)">
+    </ngx-charts-pie-chart>
+</div>

@@ -1,0 +1,99 @@
+<div fxLayout='row' fxLayoutGap="5px">
+    <button mat-raised-button color="primary" (click)="newDeposit()">New Deposit</button>
+    <button mat-raised-button color="primary" (click)="newWithdrawal()">New Withdrawal</button>
+</div>
+<app-page-loader *ngIf="isLoading"></app-page-loader>
+<table *ngIf="!isLoading" mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+  The actual rendered columns are set as a property on the row definition" -->
+
+    <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element; let i = dataIndex;"> {{ i + 1}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="txnDate">
+        <th mat-header-cell *matHeaderCellDef> Transaction Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.transactionDate | date:'d MMM yyyy' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let element"> {{ entryType[element.type] }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef> Amount </th>
+        <td mat-cell *matCellDef="let element"> {{element.amount | number:'1.2-2' }} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="mobile">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+                <div fxLayout="row" style="text-wrap: wrap; width: 100%;" fxLayoutAlign="space-between center">
+                    <div fxLayout="column" >
+                        <span style="font-weight: bold; font-size: small;">{{element.transactionDate | date:'d MMM yyyy' }}</span>
+                        <span style="font-size: small;">{{element.name}}</span>
+                    </div>
+                    <span style="font-size: small; font-weight: bold;" [ngClass]="element.type == entryType.Deposit ? 'color-plus' : 'color-minus'" >
+                        {{ element.type == entryType.Withdraw ? "-" : "" }} {{element.amount | number:'1.2-2'  }}
+                    </span>
+                </div>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let element">
+            <!-- <button mat-icon-button (click)="openEntryDialog(element); $event.stopPropagation();" color="primary"
+                aria-label="Example icon button with a heart icon">
+                <mat-icon>edit</mat-icon>
+            </button> -->
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expand">
+        <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-icon-button aria-label="expand row"
+                (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+                <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+                <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+            <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+
+                <mat-list role="list">
+                    <mat-list-item role="listitem" *ngFor="let item of element.goalEntries">
+                        <mat-icon matListItemIcon>{{ element.type == entryType.Deposit ? "add" : "remove" }}</mat-icon>
+                        <div matListItemTitle>
+                            {{ item.goal.name }}: RM {{ item.amount | number:'1.2-2' }}
+                        </div>
+                    </mat-list-item>
+                </mat-list>
+
+            </div>
+        </td>
+    </ng-container>
+    <tr mat-header-row [hidden]="_global.mobileQuery.matches"
+        *matHeaderRowDef="!_global.mobileQuery.matches ? columnsToDisplayWithExpand : columnsToDisplayWithExpandM">
+    </tr>
+    <tr mat-row
+        *matRowDef="let element; columns: !_global.mobileQuery.matches ?  columnsToDisplayWithExpand : columnsToDisplayWithExpandM;"
+        class="example-element-row" [class.example-expanded-row]="expandedElement === element"
+        [class.strikethrough]="element.isCompleted && !_global.mobileQuery.matches"
+        (click)="expandedElement = expandedElement === element ? null : element">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"> </tr>
+</table>

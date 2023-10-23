@@ -1,0 +1,28 @@
+<mat-list role="list" *ngIf="items.length > 0">
+    <mat-list-item role="listitem">
+        <span><b>{{ title }}</b></span>
+        <mat-icon [matTooltip]="description">info</mat-icon>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <div *ngFor="let item of items; let i = index;">
+        <mat-list-item role="listitem">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <div fxLayout="row" fxLayoutGap="5px">
+                    <span>{{ i + 1}})</span>
+                    <span>{{ item.name }}</span>
+                </div>
+                <span>{{ item.amount | number:'1.2-2' }}</span>
+            </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+    </div>
+    <mat-list-item role="listitem">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutGap="5px">
+                <span><b>Total</b></span>
+            </div>
+            <span><b>{{ total | number:'1.2-2' }}</b></span>
+        </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+</mat-list>

@@ -1,0 +1,6 @@
+
+
+.mat-expansion-no-side-padding .mat-expansion-panel-content .mat-expansion-panel-body{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }

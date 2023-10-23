@@ -1,0 +1,23 @@
+<div style="height: 400px; min-height: 400px; height: auto;">
+    <ngx-charts-bar-vertical-2d
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="dataSource"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [groupPadding]="groupPadding"
+        [noBarWhenZero]="noBarWhenZero"
+        [barPadding]="barPadding"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [legendTitle]="legendTitle"
+        [legendPosition]="_global.mobileQuery.matches ? legendPositionBelow : legendPositionRight"
+        (select)="onSelect($event)"
+        (activate)="onActivate($event)"
+        (deactivate)="onDeactivate($event)">
+    </ngx-charts-bar-vertical-2d>
+</div>

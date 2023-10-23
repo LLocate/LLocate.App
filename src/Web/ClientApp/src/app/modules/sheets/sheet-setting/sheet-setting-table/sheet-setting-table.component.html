@@ -1,0 +1,90 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+  The actual rendered columns are set as a property on the row definition" -->
+
+    <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element; let i = index;"> {{i + 1}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef> Category </th>
+        <td mat-cell *matCellDef="let element"> {{ sheetItemCategory[element.category] }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let element"> {{ sheetItemEntryType[element.entryType] }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="allocated">
+        <th mat-header-cell *matHeaderCellDef> Allocated </th>
+        <td mat-cell *matCellDef="let element"> {{element.allocated}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="from">
+        <th mat-header-cell *matHeaderCellDef> From </th>
+        <td mat-cell *matCellDef="let element"> {{element.installmentStartMonth}}/{{element.installmentStartYear}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="to">
+        <th mat-header-cell *matHeaderCellDef> To </th>
+        <td mat-cell *matCellDef="let element"> {{element.installmentEndMonth}}/{{element.installmentEndYear}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="mobile">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+                <mat-icon *ngIf="element.isCompleted">check</mat-icon>
+                <div fxLayout="column" style="text-wrap: wrap;">
+                    <span style="font-weight: bold;">{{element.name}}</span>
+                    <span style="font-size: small;">{{element.description }}</span>
+                    <span style="font-size: small;" *ngIf="isInstallment">from
+                        {{element.installmentStartMonth}}/{{element.installmentStartYear}} to
+                        {{element.installmentEndMonth}}/{{element.installmentEndYear}}</span>
+                    <span style="font-size: small;">{{sheetItemCategory[element.category]}} |
+                        {{ sheetItemEntryType[element.entryType] }} |
+                        {{ isInstallment ? "Installment Amount" : "Allocated"}}: {{
+                        element.allocated | number:'1.2-2'
+                        }}</span>
+                </div>
+            </div>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let element">
+            <!-- <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
+        <mat-icon>delete</mat-icon>
+    </button> -->
+            <button mat-icon-button (click)="openSheetItemSettingDialog(element)" color="primary"
+                aria-label="Example icon button with a heart icon">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+
+
+    <tr mat-header-row [hidden]="_global.mobileQuery.matches"
+        *matHeaderRowDef="_global.mobileQuery.matches ? displayedColumnsM :  isInstallment ? displayedColumnsI : displayedColumnsNI">
+    </tr>
+    <tr mat-row
+        *matRowDef="let element; columns: _global.mobileQuery.matches ? displayedColumnsM: isInstallment ? displayedColumnsI : displayedColumnsNI"
+        class="example-element-row" [class.example-expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element">
+    </tr>
+</table>

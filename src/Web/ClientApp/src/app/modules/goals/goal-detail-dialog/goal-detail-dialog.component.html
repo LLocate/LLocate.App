@@ -1,0 +1,51 @@
+<h1 mat-dialog-title>{{ !model.id ? 'Add New Goal' : 'Update Goal' }}</h1>
+<div mat-dialog-content fxLayoutGap="10px">
+    <mat-form-field>
+        <mat-label>Goal Type</mat-label>
+        <mat-select [(ngModel)]='model.type'>
+            <mat-option *ngFor="let item of goalType | enumpipe" [value]="item.key">{{item.value}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field >
+        <mat-label>Goal Name</mat-label>
+        <input matInput [(ngModel)]="model.name">
+    </mat-form-field>
+    <mat-form-field >
+        <mat-label>Description</mat-label>
+        <input matInput [(ngModel)]="model.description">
+    </mat-form-field>
+    <mat-form-field *ngIf="model.type == goalType.Targeted" class="example-full-width">
+        <mat-label>Starting Date</mat-label>
+        <input [(ngModel)]="model.startDate" matInput [matDatepicker]="pickerS">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="pickerS">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #pickerS></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field *ngIf="model.type == goalType.Targeted" class="example-full-width">
+        <mat-label>Target Date</mat-label>
+        <input [(ngModel)]="model.targetDate" matInput [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field  *ngIf="model.type == goalType.Targeted">
+        <mat-label>Target Amount</mat-label>
+        <input matInput [(ngModel)]="model.amount">
+    </mat-form-field>
+    <mat-form-field  *ngIf='model.id' >
+        <mat-label>Default Contribution Percentage</mat-label>
+        <input matInput disabled [(ngModel)]="model.defaultContributionPercentage">
+    </mat-form-field>
+    <mat-slide-toggle *ngIf='model.id' class="example-margin" color="primary" [checked]="!model.isDeactivated">
+        Active
+    </mat-slide-toggle>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="submit()" cdkFocusInitial>{{ model.id > 0 ? 'Update' :
+        'Create' }}</button>
+</div>

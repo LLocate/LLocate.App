@@ -1,0 +1,22 @@
+<div style="width:100%; text-align: center;"><h2>{{title}}</h2></div>
+<div style="min-height: 350px; max-height: 500px; height: auto;" [class.margin-bottom-5]="_global.mobileQuery.matches">
+    <ngx-charts-line-chart
+        [view]="view"
+        [scheme]="colorScheme"
+        [legend]="legend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxis]="xAxis"
+        [yAxis]="yAxis"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [timeline]="timeline"
+        [results]="dataSource"
+        [roundDomains]="roundDomains"
+        [legendPosition]="_global.mobileQuery.matches ? legendPositionBelow : legendPositionRight"
+        (select)="onSelect($event)"
+        (activate)="onActivate($event)"
+        (deactivate)="onDeactivate($event)"
+        >
+    </ngx-charts-line-chart>
+</div>

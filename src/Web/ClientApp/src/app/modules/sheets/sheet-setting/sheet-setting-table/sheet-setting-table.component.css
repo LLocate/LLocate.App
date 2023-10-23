@@ -1,0 +1,43 @@
+table {
+    width: 100%;
+}
+
+.mat-column-name {
+    width: auto !important;
+}
+
+.mat-column-position {
+    border-right: 1px solid black;
+    width: 5% !important;
+}
+
+.mat-column-allocated {
+    border-right: 1px solid black;
+    text-align: end
+}
+
+.mat-column-fulfilled {
+    border-right: 1px solid black;
+    text-align: end
+}
+
+.mat-column-balance {
+    border-right: 1px solid black;
+    text-align: end
+}
+
+.mat-column-mobile {
+    width: 30% !important;
+    padding-right: 0;
+}
+
+.mat-column-action {
+    width: 5% !important;
+    text-align: end;
+    padding: 0;
+}
+
+.strikethrough {
+    text-decoration: line-through;
+    font-weight: bold;
+}

@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Confirm Deletion?</h1>
+<div mat-dialog-content fxLayoutGap="10px" fxLayout="column">
+    <span>Warning! This action is irreversible, you will need to regenerate the sheet again and start from beginning</span>
+    <span>To proceed with the deletion, kindly type "{{ getDeletionText() }}" below:</span>
+    
+    <mat-form-field >
+        <input matInput [(ngModel)]="deletionText">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close >Cancel</button>
+    <button mat-raised-button color="primary" [disabled]="isDeleting || getDeletionText() != deletionText" (click)='delete()' cdkFocusInitial>Delete</button>
+</div>

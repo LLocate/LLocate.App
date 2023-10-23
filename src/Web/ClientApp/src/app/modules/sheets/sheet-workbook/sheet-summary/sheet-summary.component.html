@@ -1,0 +1,98 @@
+<div fxLayout="row wrap" *ngIf="model" fxLayout.xs="column"  fxLayoutGap="5px">
+    <mat-card appearance="outlined" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="49" fxFlex.lg="49" fxFlex.xl="49" fxFlex="33" class="mt-2"
+        fxLayout="column" fxLayoutGap="1em">
+        <mat-card-content>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <span>
+                    Current Balance
+                </span>
+                <span style="font-size: 16pt">
+                    {{ model?.sheet?.currentBalance | number:'1.2-2' }}
+                </span>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <mat-card appearance="outlined" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="49" fxFlex.lg="49" fxFlex.xl="49" fxFlex="33" class="mt-2"
+        fxLayout="column" fxLayoutGap="1em">
+        <mat-card-content>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <span>
+                    Incoming Expenses
+                </span>
+                <span style="font-size: 16pt">
+                    {{ model?.sheet?.incomingExpenses | number:'1.2-2' }}
+                </span>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <span>
+                    Total Spent
+                </span>
+                <span style="font-size: 16pt">
+                    {{ model?.sheet?.totalExpenses | number:'1.2-2' }}
+                </span>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <mat-card appearance="outlined" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="49" fxFlex.lg="49" fxFlex.xl="49" fxFlex="33" class="mt-2"
+        fxLayout="column" fxLayoutGap="1em">
+        <mat-card-content>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <span>
+                    Incoming Earning
+                </span>
+                <span style="font-size: 16pt">
+                    {{ model?.sheet?.incomingEarning | number:'1.2-2' }}
+                </span>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <span>
+                    Total Earned
+                </span>
+                <span style="font-size: 16pt">
+                    {{ model?.sheet?.totalEarning | number:'1.2-2' }}
+                </span>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <mat-card appearance="outlined" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="49" fxFlex.lg="49" fxFlex.xl="49" fxFlex="33" class="mt-2"
+        fxLayout="column" fxLayoutGap="1em">
+        <mat-card-content>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <span>
+                    Balance Projection
+                </span>
+                <span style="font-size: 16pt">
+                    {{ ((model?.sheet?.totalEarning + model?.sheet?.incomingEarning) - (model?.sheet?.incomingExpenses
+                    +
+                    model?.sheet?.totalExpenses)) | number:'1.2-2' }}
+                </span>
+            </div>
+            <button
+                [disabled]="((model?.sheet?.totalEarning + model?.sheet?.incomingEarning) - (model?.sheet?.incomingExpenses + model?.sheet?.totalExpenses)) <= 0"
+                mat-flat-button color="primary" (click)="newDeposit((model?.sheet?.totalEarning + model?.sheet?.incomingEarning) - (model?.sheet?.incomingExpenses +
+        model?.sheet?.totalExpenses))" aria-label="Example icon button with a heart icon">
+                <mat-icon>share</mat-icon> Deposit to Goal/Saving
+            </button>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card appearance="outlined" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="49" fxFlex.lg="49" fxFlex.xl="49" fxFlex="33" class="mt-2"
+        fxLayout="column" fxLayoutGap="1em">
+        <mat-card-content>
+            <app-chart-advanced-pie [title]="'This month\'s allocated expenses'" [isLoading]="chartLoading"
+                [dataSource]="dataSource"></app-chart-advanced-pie>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card appearance="outlined" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="49" fxFlex.lg="49" fxFlex.xl="49" fxFlex="33" class="mt-2"
+        fxLayout="column" fxLayoutGap="1em" *ngIf="underUtilized.length > 0 || overUtilized.length > 0">
+        <mat-card-content>
+            <app-sheet-summary-utilization-list *ngIf="underUtilized.length > 0" [items]="underUtilized"
+                [title]="'Under Utilized'" [description]="underUtilizedDescription" [total]="underTotal">
+            </app-sheet-summary-utilization-list>
+            <app-sheet-summary-utilization-list *ngIf="overUtilized.length > 0" [items]="overUtilized"
+                [title]="'Over Utilized'" [description]="overUtilizedDescription" [total]="overTotal">
+            </app-sheet-summary-utilization-list>
+        </mat-card-content>
+    </mat-card>
+</div>
