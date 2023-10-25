@@ -31,10 +31,12 @@ public class IdentityService : IIdentityService
 
         return new GetUserDto { 
             Email = user.Email ?? string.Empty, 
-            Name = user.UserName ?? string.Empty, 
+            Name = user.Name ?? string.Empty, 
+            DarkModePreference = user.DarkModePreference,
             DefaultTheme = user.DefaultTheme, 
             CurrencyCode = user.CurrencyCode,
-            IsCompleteOnboarding = user.IsCompleteOnboarding
+            IsCompleteOnboarding = user.IsCompleteOnboarding,
+            IsCompleteWalkthrough = user.IsCompleteWalkthrough
         };
     }
 
@@ -64,6 +66,61 @@ public class IdentityService : IIdentityService
 
         return user != null && await _userManager.IsInRoleAsync(user, role);
     }
+
+    public async Task<bool> UpdateCompleteOnboarding(string userId, bool value)
+    {
+        var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
+        if (user is null)
+            return false;
+        user.IsCompleteOnboarding = value;
+        await _userManager.UpdateAsync(user);
+        return true;
+    }
+
+    public async Task<bool> UpdateCompleteWalkthrough(string userId, bool value)
+    {
+        var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
+        if (user is null)
+            return false;
+        user.IsCompleteWalkthrough = value;
+        await _userManager.UpdateAsync(user);
+        return true;
+    }
+
+    public async Task<string> UpdateUserDefaultTheme(string userId, string theme)
+    {
+        var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
+        if (user is null)
+            return string.Empty;
+        user.DefaultTheme = theme;
+        await _userManager.UpdateAsync(user);
+        return theme;
+    }
+    public async Task<string> UpdateUserCurrencyCode(string userId, string currencyCode)
+    {
+        var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
+        if (user is null)
+            return string.Empty;
+        user.CurrencyCode = currencyCode;
+        await _userManager.UpdateAsync(user);
+        return currencyCode;
+    }
+
+    public async Task<UpdateUserDto> UpdateUser(string userId, UpdateUserDto model)
+    {
+        var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
+        if (user is null)
+            return new UpdateUserDto();
+
+        user.Name = model.Name;
+        user.DarkModePreference = model.DarkModePreference;
+        user.DefaultTheme = model.DefaultTheme;
+        user.CurrencyCode = model.CurrencyCode;
+
+        await _userManager.UpdateAsync(user);
+        return model;
+    }
+
 
     public async Task<bool> AuthorizeAsync(string userId, string policyName)
     {

@@ -12,16 +12,20 @@ export class ThemeToggleComponent {
   isDarkTheme: boolean = false;
 
   constructor(private overlayContainer: OverlayContainer,
-    private themeService: ThemeService) {
+    public themeService: ThemeService) {
     // Initialize isDarkTheme based on the current theme
-    this.isDarkTheme = themeService.isDarkMode;
+    themeService.darkMode.subscribe(res => this.isDarkTheme = res);
   }
 
-  toggleTheme() {
-    this.isDarkTheme = !this.isDarkTheme;
-    const themeClass = this.isDarkTheme ? 'theme-dark' : 'theme-light';
-    this.themeService.theme.next(themeClass);
-
+  toggleDarkMode() {
+    let newValue = !this.isDarkTheme;
+    this.themeService.isDarkMode = newValue;
+    this.themeService.darkMode.next(newValue);
+    this.themeService.theme.next(this.themeService.currentTheme);
   }
   
+  applyTheme(cssClass: string){
+    this.themeService.currentTheme = cssClass;
+    this.themeService.theme.next(this.themeService.currentTheme);
+  }
 }

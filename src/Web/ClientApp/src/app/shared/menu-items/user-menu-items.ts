@@ -107,6 +107,17 @@ const USERMENUITEMS: Menu[] = [
     isSelected: false,
     displayOn: MediaType.All,
   },
+  {
+    id: 4,
+    name: 'General Setting',
+    description: '',
+    role: ['All'],
+    child: undefined,
+    icon: 'settings_applications',
+    path: '/general-setting',
+    isSelected: false,
+    displayOn: MediaType.All,
+  },
 ];
 
 @Injectable()

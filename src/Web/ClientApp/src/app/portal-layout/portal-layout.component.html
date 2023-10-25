@@ -1,6 +1,6 @@
 <div class="app-container" [class.example-is-mobile]="_global.mobileQuery.matches">
     <mat-toolbar color='primary' class="mat-elevation-z6" style="position: sticky; top: 0;z-index: 999;">
-        <button mat-icon-button *ngIf="_global.user && !isLoadingUser" (click)="snav.toggle()">
+        <button mat-icon-button *ngIf="_global.user && _global.user.isCompleteOnboarding && !isLoadingUser" (click)="snav.toggle()">
             <mat-icon>menu</mat-icon>
         </button>
         <div fxLayout="row" fxLayoutAlign="space-between center" style="width: 100%;">
@@ -54,14 +54,22 @@
                         <!-- <div mat-subheader color="primary">{{ menu.name }}</div> -->
                         <a mat-list-item (click)="_menuItem.setActiveId(child.id)"
                             [class.font-strong]="child.id == _menuItem.activeId" [routerLink]="child.path"
-                            routerLinkActive="router-link-active" *ngFor="let child of menu.child">&nbsp; <mat-icon
-                                *ngIf="child.icon">{{child.icon}}</mat-icon>&nbsp; {{ child.name }}</a>
+                            routerLinkActive="router-link-active" *ngFor="let child of menu.child">
+                            <div fxLayoutAlign="start start">
+                                <mat-icon style="margin-left: 1em;" *ngIf="child.icon">{{child.icon}}</mat-icon>
+                                <span>&nbsp; {{ child.name }}</span>
+                            </div>
+                        </a>
                         <mat-divider></mat-divider>
                     </div>
                     <ng-template #single_item>
                         <a mat-list-item [routerLink]="menu.path" (click)="_menuItem.setActiveId(menu.id)"
                             [class.font-strong]="menu.id == _menuItem.activeId" routerLinkActive="router-link-active"
-                            *ngIf="menu.path">{{ menu.name }}</a>
+                            *ngIf="menu.path">
+                            <div fxLayoutAlign="start start">
+                                <mat-icon *ngIf="menu.icon">{{menu.icon}}</mat-icon><span>&nbsp;{{ menu.name }}</span>
+                            </div>
+                        </a>
                         <mat-divider></mat-divider>
                     </ng-template>
                 </div>

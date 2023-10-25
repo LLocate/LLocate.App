@@ -3,9 +3,10 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
+
 // Define a light theme
-$light-primary: mat.define-palette(mat.$indigo-palette);
-$light-accent:  mat.define-palette(mat.$blue-palette, A200, A100, A400);
+$light-primary: mat.define-palette(mat.$deep-purple-palette);
+$light-accent:  mat.define-palette(mat.$teal-palette, A200, A100, A400);
 $light-theme:   mat.define-light-theme((
   color: (
     primary: $light-primary,
@@ -18,12 +19,40 @@ $light-theme:   mat.define-light-theme((
   @include mat.all-component-themes($light-theme);
 }
 
-// .light-theme .mat-mdc-table {
-//   background-color: white !important;
-// }
+
+// light: deep-orange / brown
+$light-deep-orange-brown-primary: mat.define-palette(mat.$deep-orange-palette);
+$light-deep-orange-brown-accent:  mat.define-palette(mat.$brown-palette, A200, A100, A400);
+$light-deep-orange-brown-theme:   mat.define-light-theme((
+  color: (
+    primary: $light-deep-orange-brown-primary,
+    accent: $light-deep-orange-brown-accent,
+  ),
+));
+
+// Include the light theme styles inside a CSS class
+.theme-light-deeporange-brown {
+  @include mat.all-component-themes($light-deep-orange-brown-theme);
+}
+
+// dark: palestine
+$light-palestine-primary: mat.define-palette(mat.$green-palette, 700);
+$light-palestine-accent:  mat.define-palette(mat.$red-palette, 700);
+$light-palestine-theme:   mat.define-light-theme((
+  color: (
+    primary: $light-palestine-primary,
+    accent: $light-palestine-accent,
+  ),
+));
+
+// Include the light theme styles inside a CSS class
+.theme-light-palestine {
+  @include mat.all-component-themes($light-palestine-theme);
+}
+
 
 // Define a dark theme
-$dark-primary: mat.define-palette(mat.$indigo-palette);
+$dark-primary: mat.define-palette(mat.$deep-purple-palette);
 $dark-accent:  mat.define-palette(mat.$light-blue-palette, A200, A100, A400);
 $dark-theme:   mat.define-dark-theme((
   color: (
@@ -37,9 +66,36 @@ $dark-theme:   mat.define-dark-theme((
   @include mat.all-component-themes($dark-theme);
 }
 
-// .dark-theme .mat-mdc-table {
-//   background-color: #424242 !important;
-// }
+// dark: deep-orange / brown
+$dark-deep-orange-brown-primary: mat.define-palette(mat.$deep-orange-palette);
+$dark-deep-orange-brown-accent:  mat.define-palette(mat.$brown-palette, A200, A100, A400);
+$dark-deep-orange-brown-theme:   mat.define-dark-theme((
+  color: (
+    primary: $dark-deep-orange-brown-primary,
+    accent: $dark-deep-orange-brown-accent,
+  ),
+));
+
+// Include the light theme styles inside a CSS class
+.theme-dark-deeporange-brown {
+  @include mat.all-component-themes($dark-deep-orange-brown-theme);
+}
+
+// dark: palestine
+$dark-palestine-primary: mat.define-palette(mat.$green-palette, 700);
+$dark-palestine-accent:  mat.define-palette(mat.$red-palette, 700);
+$dark-palestine-theme:   mat.define-dark-theme((
+  color: (
+    primary: $dark-palestine-primary,
+    accent: $dark-palestine-accent,
+  ),
+));
+
+// Include the light theme styles inside a CSS class
+.theme-dark-palestine {
+  @include mat.all-component-themes($dark-palestine-theme);
+}
+
 
 /* Provide sufficient contrast against white background */
 a {

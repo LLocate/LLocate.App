@@ -9,6 +9,11 @@ public interface IIdentityService
     Task<string?> GetUserNameAsync(string userId);
 
     Task<bool> IsInRoleAsync(string userId, string role);
+    Task<bool> UpdateCompleteOnboarding(string userId, bool value);
+    Task<bool> UpdateCompleteWalkthrough(string userId, bool value);
+    Task<string> UpdateUserDefaultTheme(string userId, string theme);
+    Task<string> UpdateUserCurrencyCode(string userId, string currencyCode);
+    Task<UpdateUserDto> UpdateUser(string userId, UpdateUserDto model);
 
     Task<bool> AuthorizeAsync(string userId, string policyName);
 

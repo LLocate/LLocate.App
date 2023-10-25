@@ -12,7 +12,7 @@ using System.Reflection.Emit;
 
 namespace LLocate.Infrastructure.Data;
 
-//dotnet ef migrations add "OnboardingFlag" --project src\Infrastructure --startup-project src\Web --output-dir Data\Migrations
+//dotnet ef migrations add "DarkModePreference" --project src\Infrastructure --startup-project src\Web --output-dir Data\Migrations
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }

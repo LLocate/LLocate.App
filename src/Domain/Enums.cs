@@ -1,5 +1,11 @@
 ﻿namespace LLocate.Domain.Enums;
 
+public enum DarkModePreference
+{
+    SystemDefault = 0,
+    Light = 1,
+    Dark = 2
+}
 public enum PriorityLevel
 {
     None = 0,

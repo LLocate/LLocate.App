@@ -925,6 +925,171 @@
         }
       }
     },
+    "/api/Users/SetCompleteOnboarding": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "SetCompleteOnboarding",
+        "requestBody": {
+          "x-name": "command",
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetCompleteOnboardingCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Users/SetCompleteWalkthrough": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "SetCompleteWalkthrough",
+        "requestBody": {
+          "x-name": "command",
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetCompleteWalkthroughCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Users/SetDefaultTheme": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "SetDefaultTheme",
+        "requestBody": {
+          "x-name": "command",
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetDefaultThemeCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Users/SetDefaultCurrency": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "SetDefaultCurrency",
+        "requestBody": {
+          "x-name": "command",
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetDefaultCurrencyCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Users/UpdateUser": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "UpdateUser",
+        "requestBody": {
+          "x-name": "command",
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateUserDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/WeatherForecasts": {
       "get": {
         "tags": [
@@ -1843,6 +2008,9 @@
           "email": {
             "type": "string"
           },
+          "darkModePreference": {
+            "$ref": "#/components/schemas/DarkModePreference"
+          },
           "defaultTheme": {
             "type": "string"
           },
@@ -1851,6 +2019,86 @@
           },
           "isCompleteOnboarding": {
             "type": "boolean"
+          },
+          "isCompleteWalkthrough": {
+            "type": "boolean"
+          }
+        }
+      },
+      "DarkModePreference": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "SystemDefault",
+          "Light",
+          "Dark"
+        ],
+        "enum": [
+          0,
+          1,
+          2
+        ]
+      },
+      "SetCompleteOnboardingCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "isCompleted": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SetCompleteWalkthroughCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "isCompleted": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SetDefaultThemeCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "defaultTheme": {
+            "type": "string"
+          }
+        }
+      },
+      "SetDefaultCurrencyCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "currencyCode": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "defaultTheme": {
+            "type": "string"
+          },
+          "darkModePreference": {
+            "$ref": "#/components/schemas/DarkModePreference"
+          },
+          "currencyCode": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateUserCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "model": {
+            "$ref": "#/components/schemas/UpdateUserDto"
           }
         }
       },

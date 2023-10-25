@@ -1,1 +1,17 @@
-<p>onboarding works!</p>
+<mat-stepper orientation="{{ _global.mobileQuery.matches ? 'vertical' : 'horizontal' }}" #stepper>
+    <mat-step>
+        <ng-template matStepLabel>Tell us about yourself</ng-template>
+        <app-settings-user-preference></app-settings-user-preference>
+        <div>
+            <button mat-flat-button color="accent" matStepperNext>Next</button>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Final step</ng-template>
+        <p>Let's begin your awesome journey! 😎</p>
+        <div fxLayoutGap="10px">
+            <button mat-flat-button color="accent" matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" (click)="completeOnboarding()">Complete Onboarding</button>
+        </div>
+    </mat-step>
+</mat-stepper>

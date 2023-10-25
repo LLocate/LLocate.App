@@ -1,4 +1,4 @@
-import { Component, HostBinding, HostListener, NgZone } from '@angular/core';
+import { ApplicationRef, Component, HostBinding, HostListener, NgZone } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { ThemeService } from './services/theme.service';
@@ -18,6 +18,7 @@ export class AppComponent {
     private themingService: ThemeService,
     private overlayContainer: OverlayContainer,
     private ngZone: NgZone,
+    private ref: ApplicationRef,
     private swUpdate: SwUpdate) {
 
     this.swUpdate.versionUpdates.subscribe((a) => {
@@ -68,25 +69,8 @@ export class AppComponent {
 
   ngOnInit() {
     this.themingSubscription = this.themingService.theme.subscribe((theme: string) => {
-      this.cssClass = theme;
-      // this.applyDarkMode(this.cssClass != '');
       this.applyTheme(theme);
     });
-  }
-
-  /**
-   * Apply the current theme on components with overlay (e.g. Dropdowns, Dialogs)
-   */
-  private applyDarkMode(apply: boolean = true) {
-    // remove old theme class and add new theme class
-    // we're removing any css class that contains '-theme' string but your theme classes can follow any pattern
-    const overlayContainerClasses = this.overlayContainer.getContainerElement().classList;
-    const themeClassesToRemove = Array.from(this.themingService.themes);
-    if (themeClassesToRemove.length) {
-      overlayContainerClasses.remove(...themeClassesToRemove);
-    }
-    if (apply)
-      overlayContainerClasses.add(this.cssClass);
   }
 
   /**
@@ -96,14 +80,18 @@ export class AppComponent {
     // remove old theme class and add new theme class
     // we're removing any css class that contains '-theme' string but your theme classes can follow any pattern
     const overlayContainerClasses = this.overlayContainer.getContainerElement().classList;
-    const themeClassesToRemove = Array.from(this.themingService.themes);
+
+    let lightTheme = this.themingService.themes.map(x => 'theme-light'+ x.class);
+    let darkTheme = this.themingService.themes.map(x => 'theme-dark'+ x.class);
+    const themeClassesToRemove = Array.from(lightTheme.concat(darkTheme));
     if (themeClassesToRemove.length) {
-      console.log(themeClassesToRemove)
       overlayContainerClasses.remove(...themeClassesToRemove);
-      console.log(theme)
-      overlayContainerClasses.add(theme);
+      let themeCss = this.themingService.isDarkMode ? 'theme-dark' + theme : 'theme-light' + theme;
+      overlayContainerClasses.add(themeCss);
+      this.cssClass = themeCss;
     }
   }
+
   ngOnDestroy() {
     this.themingSubscription.unsubscribe();
   }

@@ -17,10 +17,12 @@ import { ChartAdvancedPieComponent } from './components/charts/chart-advanced-pi
 import { ChartBarVerticalGroupedComponent } from './components/charts/chart-bar-vertical-grouped/chart-bar-vertical-grouped.component';
 import { ChartLineComponent } from './components/charts/chart-line/chart-line.component';
 import { ChartPieComponent } from './components/charts/chart-pie/chart-pie.component';
+import { ThemePreviewSvgComponent } from './components/theme-preview-svg/theme-preview-svg.component';
 @NgModule({
     declarations: [
         ConfirmDialogComponent,
         AlertDialogComponent,
+        ThemePreviewSvgComponent,
 
         PageLoaderComponent,
 
@@ -60,6 +62,8 @@ import { ChartPieComponent } from './components/charts/chart-pie/chart-pie.compo
         ChartLineComponent,
         ChartPieComponent,
         ChartAdvancedPieComponent,
+
+        ThemePreviewSvgComponent,
     ],
 })
 export class SharedModule {

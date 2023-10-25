@@ -1,0 +1,33 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5px">
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput type="text" [value]="_global.user.email" disabled >
+        </mat-form-field>
+
+
+        <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Default Theme</mat-label>
+            <input matInput type="text" formControlName="defaultTheme">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Dark Mode Preference</mat-label>
+            <mat-select formControlName="darkModePreference">
+                <mat-option *ngFor="let item of darkModePreference | enumpipe" [value]="item.key">{{item.value}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Currency Code</mat-label>
+            <input matInput type="text" formControlName="currencyCode">
+        </mat-form-field>
+
+    </div>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">Submit</button>
+</form>

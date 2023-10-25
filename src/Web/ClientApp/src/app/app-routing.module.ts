@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { PortalLayoutComponent } from "./portal-layout/portal-layout.component";
 import { NotFoundComponent } from "./portal-layout/not-found/not-found.component";
 import { PortalIndexComponent } from "./portal-layout/portal-index/portal-index.component";
+import { AuthGuard } from "./services/auth.guard";
 
 export const routes: Routes = [
   // {
@@ -29,6 +30,15 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () => import(`./modules/dashboard/dashboard.module`).then(m => m.DashboardModule),
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'onboarding',
+        loadChildren: () => import(`./modules/onboarding/onboarding.module`).then(m => m.OnboardingModule),
+      },
+      {
+        path: 'settings',
+        loadChildren: () => import(`./modules/settings/settings.module`).then(m => m.SettingsModule),
       },
       { path: '404', component: NotFoundComponent },
       { path: '**', redirectTo: '/404' }

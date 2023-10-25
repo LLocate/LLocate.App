@@ -1,3 +1,16 @@
-<button mat-icon-button (click)="toggleTheme()">
+<button mat-icon-button (click)="toggleDarkMode()">
     <mat-icon>{{ isDarkTheme ? "dark_mode" : "light_mode"}}</mat-icon>
 </button>
+
+<button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>format_color_fill</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+    <button mat-menu-item *ngFor="let theme of themeService.themes" (click)="applyTheme(theme.class)">
+        <div style="width:100%" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px">
+            <span>{{theme.name}}</span>
+            <app-theme-preview-svg style="width:40px; height: 40px;">
+            </app-theme-preview-svg>
+        </div>
+    </button>
+</mat-menu>

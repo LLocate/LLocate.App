@@ -1612,6 +1612,11 @@ export class TodoListsClient implements ITodoListsClient {
 
 export interface IUsersClient {
     getUser(): Observable<GetUserDto>;
+    setCompleteOnboarding(command: SetCompleteOnboardingCommand): Observable<boolean>;
+    setCompleteWalkthrough(command: SetCompleteWalkthroughCommand): Observable<boolean>;
+    setDefaultTheme(command: SetDefaultThemeCommand): Observable<string>;
+    setDefaultCurrency(command: SetDefaultCurrencyCommand): Observable<string>;
+    updateUser(command: UpdateUserCommand): Observable<UpdateUserDto>;
 }
 
 @Injectable({
@@ -1665,6 +1670,270 @@ export class UsersClient implements IUsersClient {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result200 = GetUserDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    setCompleteOnboarding(command: SetCompleteOnboardingCommand): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/Users/SetCompleteOnboarding";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSetCompleteOnboarding(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSetCompleteOnboarding(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<boolean>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<boolean>;
+        }));
+    }
+
+    protected processSetCompleteOnboarding(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    setCompleteWalkthrough(command: SetCompleteWalkthroughCommand): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/Users/SetCompleteWalkthrough";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSetCompleteWalkthrough(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSetCompleteWalkthrough(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<boolean>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<boolean>;
+        }));
+    }
+
+    protected processSetCompleteWalkthrough(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    setDefaultTheme(command: SetDefaultThemeCommand): Observable<string> {
+        let url_ = this.baseUrl + "/api/Users/SetDefaultTheme";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSetDefaultTheme(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSetDefaultTheme(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<string>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<string>;
+        }));
+    }
+
+    protected processSetDefaultTheme(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    setDefaultCurrency(command: SetDefaultCurrencyCommand): Observable<string> {
+        let url_ = this.baseUrl + "/api/Users/SetDefaultCurrency";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSetDefaultCurrency(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSetDefaultCurrency(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<string>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<string>;
+        }));
+    }
+
+    protected processSetDefaultCurrency(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    updateUser(command: UpdateUserCommand): Observable<UpdateUserDto> {
+        let url_ = this.baseUrl + "/api/Users/UpdateUser";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateUser(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateUser(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<UpdateUserDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<UpdateUserDto>;
+        }));
+    }
+
+    protected processUpdateUser(response: HttpResponseBase): Observable<UpdateUserDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = UpdateUserDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -3522,9 +3791,11 @@ export interface IUpdateTodoListCommand {
 export class GetUserDto implements IGetUserDto {
     name?: string;
     email?: string;
+    darkModePreference?: DarkModePreference;
     defaultTheme?: string;
     currencyCode?: string;
     isCompleteOnboarding?: boolean;
+    isCompleteWalkthrough?: boolean;
 
     constructor(data?: IGetUserDto) {
         if (data) {
@@ -3539,9 +3810,11 @@ export class GetUserDto implements IGetUserDto {
         if (_data) {
             this.name = _data["name"];
             this.email = _data["email"];
+            this.darkModePreference = _data["darkModePreference"];
             this.defaultTheme = _data["defaultTheme"];
             this.currencyCode = _data["currencyCode"];
             this.isCompleteOnboarding = _data["isCompleteOnboarding"];
+            this.isCompleteWalkthrough = _data["isCompleteWalkthrough"];
         }
     }
 
@@ -3556,9 +3829,11 @@ export class GetUserDto implements IGetUserDto {
         data = typeof data === 'object' ? data : {};
         data["name"] = this.name;
         data["email"] = this.email;
+        data["darkModePreference"] = this.darkModePreference;
         data["defaultTheme"] = this.defaultTheme;
         data["currencyCode"] = this.currencyCode;
         data["isCompleteOnboarding"] = this.isCompleteOnboarding;
+        data["isCompleteWalkthrough"] = this.isCompleteWalkthrough;
         return data;
     }
 }
@@ -3566,9 +3841,245 @@ export class GetUserDto implements IGetUserDto {
 export interface IGetUserDto {
     name?: string;
     email?: string;
+    darkModePreference?: DarkModePreference;
     defaultTheme?: string;
     currencyCode?: string;
     isCompleteOnboarding?: boolean;
+    isCompleteWalkthrough?: boolean;
+}
+
+export enum DarkModePreference {
+    SystemDefault = 0,
+    Light = 1,
+    Dark = 2,
+}
+
+export class SetCompleteOnboardingCommand implements ISetCompleteOnboardingCommand {
+    isCompleted?: boolean;
+
+    constructor(data?: ISetCompleteOnboardingCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.isCompleted = _data["isCompleted"];
+        }
+    }
+
+    static fromJS(data: any): SetCompleteOnboardingCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new SetCompleteOnboardingCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["isCompleted"] = this.isCompleted;
+        return data;
+    }
+}
+
+export interface ISetCompleteOnboardingCommand {
+    isCompleted?: boolean;
+}
+
+export class SetCompleteWalkthroughCommand implements ISetCompleteWalkthroughCommand {
+    isCompleted?: boolean;
+
+    constructor(data?: ISetCompleteWalkthroughCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.isCompleted = _data["isCompleted"];
+        }
+    }
+
+    static fromJS(data: any): SetCompleteWalkthroughCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new SetCompleteWalkthroughCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["isCompleted"] = this.isCompleted;
+        return data;
+    }
+}
+
+export interface ISetCompleteWalkthroughCommand {
+    isCompleted?: boolean;
+}
+
+export class SetDefaultThemeCommand implements ISetDefaultThemeCommand {
+    defaultTheme?: string;
+
+    constructor(data?: ISetDefaultThemeCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.defaultTheme = _data["defaultTheme"];
+        }
+    }
+
+    static fromJS(data: any): SetDefaultThemeCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new SetDefaultThemeCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["defaultTheme"] = this.defaultTheme;
+        return data;
+    }
+}
+
+export interface ISetDefaultThemeCommand {
+    defaultTheme?: string;
+}
+
+export class SetDefaultCurrencyCommand implements ISetDefaultCurrencyCommand {
+    currencyCode?: string;
+
+    constructor(data?: ISetDefaultCurrencyCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.currencyCode = _data["currencyCode"];
+        }
+    }
+
+    static fromJS(data: any): SetDefaultCurrencyCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new SetDefaultCurrencyCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["currencyCode"] = this.currencyCode;
+        return data;
+    }
+}
+
+export interface ISetDefaultCurrencyCommand {
+    currencyCode?: string;
+}
+
+export class UpdateUserDto implements IUpdateUserDto {
+    name?: string;
+    defaultTheme?: string;
+    darkModePreference?: DarkModePreference;
+    currencyCode?: string;
+
+    constructor(data?: IUpdateUserDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.defaultTheme = _data["defaultTheme"];
+            this.darkModePreference = _data["darkModePreference"];
+            this.currencyCode = _data["currencyCode"];
+        }
+    }
+
+    static fromJS(data: any): UpdateUserDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateUserDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["defaultTheme"] = this.defaultTheme;
+        data["darkModePreference"] = this.darkModePreference;
+        data["currencyCode"] = this.currencyCode;
+        return data;
+    }
+}
+
+export interface IUpdateUserDto {
+    name?: string;
+    defaultTheme?: string;
+    darkModePreference?: DarkModePreference;
+    currencyCode?: string;
+}
+
+export class UpdateUserCommand implements IUpdateUserCommand {
+    model?: UpdateUserDto;
+
+    constructor(data?: IUpdateUserCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.model = _data["model"] ? UpdateUserDto.fromJS(_data["model"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): UpdateUserCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateUserCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["model"] = this.model ? this.model.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface IUpdateUserCommand {
+    model?: UpdateUserDto;
 }
 
 export class WeatherForecast implements IWeatherForecast {

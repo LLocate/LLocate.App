@@ -49,6 +49,9 @@ export class PortalLayoutComponent implements OnInit {
     this.userClient.getUser().subscribe(res => {
       if (res && res.email) {
         this._global.setUser(res);
+        if(!res.isCompleteOnboarding){
+          this.router.navigate(['onboarding'])
+        }
       }
       this.isLoadingUser = false;
     },
