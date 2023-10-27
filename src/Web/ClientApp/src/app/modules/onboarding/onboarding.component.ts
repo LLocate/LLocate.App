@@ -15,6 +15,7 @@ export class OnboardingComponent {
 
   constructor(private _formBuilder: FormBuilder, public _global: Globals, private router: Router, private usersClient: UsersClient) {
     _global.setTitle("Onboarding");
+    console.log('onboarding');
   }
 
   completeOnboarding() {
