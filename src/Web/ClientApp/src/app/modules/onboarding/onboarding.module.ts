@@ -5,19 +5,18 @@ import { OnbnoardingRouting } from './onboarding.routing';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SettingsModule } from '../settings/settings.module';
-
-
+import { SettingsUserPreferenceComponent } from '../settings/settings-user-preference/settings-user-preference.component';
 
 @NgModule({
   declarations: [
-    OnboardingComponent
+    OnboardingComponent,
   ],
   imports: [
+    OnbnoardingRouting,
     CommonModule,
     SharedModule,
     FormsModule,
-    SettingsModule,
-    OnbnoardingRouting
+    SettingsUserPreferenceComponent
   ]
 })
 export class OnboardingModule { }

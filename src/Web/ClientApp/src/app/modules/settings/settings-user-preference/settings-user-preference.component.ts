@@ -1,13 +1,20 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Globals } from 'src/app/services/globals';
 import { ThemeService } from 'src/app/services/theme.service';
 import { AppConstants } from 'src/app/shared/constants';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { DarkModePreference, UpdateUserCommand, UpdateUserDto, UsersClient } from 'src/app/web-api-client';
 
 @Component({
+  standalone: true,
+  imports: [
+    SharedModule,
+    FormsModule,
+    CommonModule],
   selector: 'app-settings-user-preference',
   templateUrl: './settings-user-preference.component.html',
   styleUrls: ['./settings-user-preference.component.css']

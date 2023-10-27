@@ -11,15 +11,12 @@ import { SettingsRouting } from './settings.routing';
 @NgModule({
   declarations: [
     SettingsComponent,
-    SettingsUserPreferenceComponent
   ],
   imports: [
     SettingsRouting,
     SharedModule,
     FormsModule,
-    CommonModule
-  ],
-  exports:[
+    CommonModule,
     SettingsUserPreferenceComponent
   ]
 })
