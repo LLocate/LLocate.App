@@ -8,7 +8,7 @@ import { Globals } from 'src/app/services/globals';
 })
 export class SettingsComponent {
 
-  constructor(public _global: Globals){
+  constructor(public _global: Globals) {
     _global.setTitle("Settings");
   }
 }
