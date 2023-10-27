@@ -9,8 +9,7 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'start',
-                pathMatch: 'full'
+                component: OnboardingStepperComponent
             },
             {
                 path: 'start',

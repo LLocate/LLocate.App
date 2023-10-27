@@ -10,8 +10,7 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'general',
-                pathMatch: 'full'
+                component: SettingsUserPreferenceComponent
             },
             {
                 path: 'general',
