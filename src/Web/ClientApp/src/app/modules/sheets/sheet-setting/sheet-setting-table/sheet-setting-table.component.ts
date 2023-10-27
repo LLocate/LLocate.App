@@ -5,6 +5,7 @@ import { SheetItemCategory, SheetItemEntryType, SheetItemSetting, SheetsClient }
 import { SheetItemSettingDialogComponent } from '../../sheet-item-setting-dialog/sheet-item-setting-dialog.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Globals } from 'src/app/services/globals';
+import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-sheet-setting-table',
@@ -39,6 +40,31 @@ export class SheetSettingTableComponent {
       console.log(result);
       if (result) {
         this.refreshSheet.emit(true);
+      }
+    });
+  }
+
+
+  deleteSheetItemSettingDialog(data: SheetItemSetting = undefined): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Confirm deletion?',
+        isHtmlContent: true,
+        content: `warning, deleted record cannot be retrieved anymore. Please confirm your action.`,
+        rejectButton: 'Cancel',
+        acceptButton: 'Delete'
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      console.log(result);
+      if (result) {
+        this.sheetClient.deleteSheetItemSetting(data.id).subscribe(res => {
+          this.snackBar.open('Record has been deleted!', 'Close', {
+            duration: 5000,
+          });
+          this.refreshSheet.emit(true);
+        })
       }
     });
   }

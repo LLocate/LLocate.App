@@ -31,7 +31,8 @@ public class Sheets : EndpointGroupBase
             .MapPost(UpsertSheetItemSetting, nameof(UpsertSheetItemSetting))
             .MapPost(UpdateSheetSetting, nameof(UpdateSheetSetting))
             .MapPost(UpsertSheetItemEntry, nameof(UpsertSheetItemEntry))
-            .MapDelete(DeleteSheet, nameof(DeleteSheet));
+            .MapDelete(DeleteSheet, nameof(DeleteSheet))
+            .MapDelete(DeleteSheetItemSetting, nameof(DeleteSheetItemSetting));
     }
 
     public async Task<List<SheetItemSetting>> GetAllSheetItemSettings(ISender sender, [AsParameters] GetAllSheetItemSettingsQuery query)
@@ -75,6 +76,10 @@ public class Sheets : EndpointGroupBase
     public async Task<bool> DeleteSheet(ISender sender, [AsParameters] DeleteSheetCommand command)
     {
         return await sender.Send(command);
+    }
+    public async Task<bool> DeleteSheetItemSetting(ISender sender, int id)
+    {
+        return await sender.Send(new DeleteSheetItemSettingCommand { Id = id });
     }
 
 }

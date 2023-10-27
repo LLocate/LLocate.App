@@ -609,6 +609,38 @@
         }
       }
     },
+    "/api/Sheets/DeleteSheetItemSetting": {
+      "delete": {
+        "tags": [
+          "Sheets"
+        ],
+        "operationId": "DeleteSheetItemSetting",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/TodoItems": {
       "get": {
         "tags": [

@@ -4,6 +4,7 @@ import { SettingsComponent } from './settings.component';
 import { SettingsUserPreferenceComponent } from './settings-user-preference/settings-user-preference.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { SettingsRouting } from './settings.routing';
 
 
 
@@ -13,6 +14,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     SettingsUserPreferenceComponent
   ],
   imports: [
+    SettingsRouting,
     SharedModule,
     FormsModule,
     CommonModule

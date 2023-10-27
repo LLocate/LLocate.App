@@ -114,7 +114,7 @@ const USERMENUITEMS: Menu[] = [
     role: ['All'],
     child: undefined,
     icon: 'settings_applications',
-    path: '/general-setting',
+    path: '/settings',
     isSelected: false,
     displayOn: MediaType.All,
   },

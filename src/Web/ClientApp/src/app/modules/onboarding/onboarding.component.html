@@ -1,10 +1,7 @@
 <mat-stepper orientation="{{ _global.mobileQuery.matches ? 'vertical' : 'horizontal' }}" #stepper>
     <mat-step>
         <ng-template matStepLabel>Tell us about yourself</ng-template>
-        <app-settings-user-preference></app-settings-user-preference>
-        <div>
-            <button mat-flat-button color="accent" matStepperNext>Next</button>
-        </div>
+        <app-settings-user-preference [submitButtonText]="'Next'" (formSubmitted)="nextStep()" ></app-settings-user-preference>
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Final step</ng-template>

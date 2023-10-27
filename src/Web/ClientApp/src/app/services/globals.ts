@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
 import { GetUserDto } from '../web-api-client';
+import { ThemeService } from './theme.service';
 
 @Injectable({
   providedIn: 'root'

@@ -9,7 +9,8 @@
             id="b"></path>
         <path d="M0 0h80v17.24H0V0z" id="c"></path>
     </defs>
-    <use xlink:href="#a" fill="#fff" class="docs-theme-icon-background"></use>
-    <use xlink:href="#b" fill="#ff4081" class="docs-theme-icon-button"></use>
-    <use xlink:href="#c" fill="#3f51b5" class="docs-theme-icon-toolbar"></use>
+    <use xlink:href="#a" [attr.fill]="background" class="docs-theme-icon-background"></use> 
+    <use xlink:href="#b" [attr.fill]="accent"  class="docs-theme-icon-button"></use>
+    <use xlink:href="#c" [attr.fill]="primary" class="docs-theme-icon-toolbar"></use>
 </svg>
+

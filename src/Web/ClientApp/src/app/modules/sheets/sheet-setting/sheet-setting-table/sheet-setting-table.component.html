@@ -71,10 +71,21 @@
             <!-- <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
         <mat-icon>delete</mat-icon>
     </button> -->
-            <button mat-icon-button (click)="openSheetItemSettingDialog(element)" color="primary"
-                aria-label="Example icon button with a heart icon">
+
+            <button mat-icon-button (click)="$event.stopPropagation();" [matMenuTriggerFor]="menu"
+            aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="openSheetItemSettingDialog(element)">
                 <mat-icon>edit</mat-icon>
+                <span>Edit</span>
             </button>
+            <button mat-menu-item (click)="deleteSheetItemSettingDialog(element)">
+                <mat-icon>delete</mat-icon>
+                <span>delete</span>
+            </button>
+        </mat-menu>
         </td>
     </ng-container>
 

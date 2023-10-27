@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Globals } from 'src/app/services/globals';
 import { UserMenuItems } from '../shared/menu-items/user-menu-items';
 import { UsersClient } from '../web-api-client';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-portal-layout',
@@ -25,6 +26,7 @@ export class PortalLayoutComponent implements OnInit {
     changeDetectorRef: ChangeDetectorRef,
     public _menuItem: UserMenuItems,
     private userClient: UsersClient,
+    private themeService: ThemeService,
     @Inject('BASE_URL') baseUrl: string,
     mediaM: MediaMatcher) {
     this.loginUrl = `${baseUrl}Identity/Account/Login`;
@@ -49,6 +51,7 @@ export class PortalLayoutComponent implements OnInit {
     this.userClient.getUser().subscribe(res => {
       if (res && res.email) {
         this._global.setUser(res);
+        this.themeService.setSystemDefaultDarkMode();
         if(!res.isCompleteOnboarding){
           this.router.navigate(['onboarding'])
         }
@@ -56,7 +59,8 @@ export class PortalLayoutComponent implements OnInit {
       this.isLoadingUser = false;
     },
     (err) =>{
-      this.isLoadingUser = false;
+        this.themeService.setSystemDefaultDarkMode();
+        this.isLoadingUser = false;
     })
   }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-theme-preview-svg',
@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./theme-preview-svg.component.css']
 })
 export class ThemePreviewSvgComponent {
-
+  @Input() primary: string = '';
+  @Input() accent: string = '';
+  @Input() background: string = '';
 }
