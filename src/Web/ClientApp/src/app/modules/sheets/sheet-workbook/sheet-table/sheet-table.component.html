@@ -50,9 +50,9 @@
                 <mat-icon *ngIf="element.isCompleted">check</mat-icon>
                 <div fxLayout="column" style="text-wrap: wrap;">
                     <span style="font-weight: bold;">{{element.name}}</span>
-                    <span style="font-size: small;">Allocated: {{element.allocated | number:'1.2-2' }}</span>
-                    <span style="font-size: small;">Fulfilled: {{element.fulfilled | number:'1.2-2' }}</span>
-                    <span style="font-size: small;">Balance: {{ element.allocated - element.fulfilled | number:'1.2-2'
+                    <span class="font-small">Allocated: {{element.allocated | number:'1.2-2' }}</span>
+                    <span class="font-small">Fulfilled: {{element.fulfilled | number:'1.2-2' }}</span>
+                    <span class="font-small">Balance: {{ element.allocated - element.fulfilled | number:'1.2-2'
                         }}</span>
                 </div>
             </div>
@@ -98,17 +98,24 @@
     <ng-container matColumnDef="expandedDetail">
         <td mat-cell *matCellDef="let element"
             [attr.colspan]="!_global.mobileQuery.matches ? columnsToDisplayWithExpand.length : columnsToDisplayWithExpandM.length">
-            <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                <mat-list role="list" style="width: 100%;">
+            <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
+                fxLayout="column">
+                <mat-list>
                     <div *ngFor="let item of element.sheetItemEntries">
-                        <mat-list-item role="listitem">
-                            <mat-icon matListItemIcon>subdirectory_arrow_right</mat-icon>
-                            <div matListItemTitle style="text-wrap: wrap;">
-                                {{item.transactionDate | date:'d MMM yyyy'}}
+                        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1em">
+                            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1em"
+                                style="padding-top:10px; padding-bottom: 10px;"
+                                [class.font-small]="_global.mobileQuery.matches">
+                                <mat-icon color="accent">subdirectory_arrow_right</mat-icon>
+                                <div fxLayout="column">
+                                    <div style="text-wrap: wrap;">
+                                        {{item.transactionDate | date:'d MMM yyyy'}}
+                                    </div>
+                                    <span style="word-break: break-all;">{{ item.description }}</span>
+                                </div>
                             </div>
-                            <span matListItemLine>{{ item.description }}</span>
-                            <span matListItemLine>{{ item.amount}}</span>
-                        </mat-list-item>
+                            <span style="font-weight: bold;">{{ item.amount}}</span>
+                        </div>
                         <mat-divider></mat-divider>
                     </div>
                 </mat-list>
