@@ -89,6 +89,11 @@ export class AppComponent {
       let themeCss = this.themingService.isDarkMode ? 'theme-dark' + theme : 'theme-light' + theme;
       overlayContainerClasses.add(themeCss);
       this.cssClass = themeCss;
+      let themeObj = this.themingService.themes.find(x => x.class == theme);
+      const manifest = document.querySelector('#manifest');
+      if (manifest) {
+        manifest.setAttribute('theme-color', themeObj.primary);
+      }
     }
   }
 
