@@ -11,7 +11,7 @@
                     <span>{{ i + 1}})</span>
                     <span>{{ item.name }}</span>
                 </div>
-                <span>{{ item.amount | number:'1.2-2' }}</span>
+                <span>{{ _global.getCurrency() }} {{ item.amount | number:'1.2-2' }}</span>
             </div>
         </mat-list-item>
         <mat-divider></mat-divider>
@@ -21,7 +21,7 @@
             <div fxLayout="row" fxLayoutGap="5px">
                 <span><b>Total</b></span>
             </div>
-            <span><b>{{ total | number:'1.2-2' }}</b></span>
+            <span><b>{{ _global.getCurrency() }} {{ total | number:'1.2-2' }}</b></span>
         </div>
     </mat-list-item>
     <mat-divider></mat-divider>

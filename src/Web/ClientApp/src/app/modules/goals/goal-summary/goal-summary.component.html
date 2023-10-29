@@ -30,22 +30,22 @@
     </ng-container>
 
     <ng-container matColumnDef="targetAmount">
-        <th mat-header-cell *matHeaderCellDef> Target Amount </th>
+        <th mat-header-cell *matHeaderCellDef> Target Amount ({{ _global.getCurrency() }}) </th>
         <td mat-cell *matCellDef="let element"> {{element.targetAmount}} </td>
     </ng-container>
 
     <ng-container matColumnDef="accumulated">
-        <th mat-header-cell *matHeaderCellDef> Accumulated </th>
+        <th mat-header-cell *matHeaderCellDef> Accumulated ({{ _global.getCurrency() }}) </th>
         <td mat-cell *matCellDef="let element"> {{element.accumulated}} </td>
     </ng-container>
 
     <ng-container matColumnDef="utilized">
-        <th mat-header-cell *matHeaderCellDef> Utilized </th>
+        <th mat-header-cell *matHeaderCellDef> Utilized ({{ _global.getCurrency() }}) </th>
         <td mat-cell *matCellDef="let element"> {{element.utilized}} </td>
     </ng-container>
 
     <ng-container matColumnDef="available">
-        <th mat-header-cell *matHeaderCellDef> Balance </th>
+        <th mat-header-cell *matHeaderCellDef> Balance ({{ _global.getCurrency() }})</th>
         <td mat-cell *matCellDef="let element"> {{element.availableToSpend}} </td>
     </ng-container>
 
@@ -59,12 +59,12 @@
                     <span style="font-weight: bold;">{{element.name}}</span>
                     <span style="font-size: small;" *ngIf="element.startDate || element.targetDate"> {{!element.startDate ? "No start date" : element.startDate | date:'d MMM yyyy' }} - {{!element.targetDate ? "No target date" : element.targetDate | date:'d MMM yyyy' }}</span>
                     <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
-                        <span style="font-size: small;">Target Amount : {{element.targetAmount | number:'1.2-2' }}</span>
-                        <span style="font-size: small;">Accumulated : {{element.accumulated | number:'1.2-2' }}</span>
+                        <span style="font-size: small;">Target Amount : {{ _global.getCurrency() }} {{element.targetAmount | number:'1.2-2' }}</span>
+                        <span style="font-size: small;">Accumulated : {{ _global.getCurrency() }} {{element.accumulated | number:'1.2-2' }}</span>
                     </div>
                     <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
-                        <span style="font-size: small;">Utilized : {{element.utilized | number:'1.2-2' }}</span>
-                        <span style="font-size: small;">Balance : {{element.availableToSpend | number:'1.2-2' }}</span>
+                        <span style="font-size: small;">Utilized : {{ _global.getCurrency() }} {{element.utilized | number:'1.2-2' }}</span>
+                        <span style="font-size: small;">Balance : {{ _global.getCurrency() }} {{element.availableToSpend | number:'1.2-2' }}</span>
                     </div>
                 </div>
             </div>

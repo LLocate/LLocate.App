@@ -13,3 +13,10 @@ export class AppConstants {
         // Add more currencies as needed
     ];
   }
+
+export interface Currency {
+    code: string,
+    name: string,
+    symbol: string,
+    symbolPosition: string
+}

@@ -33,7 +33,7 @@
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <mat-form-field  *ngIf="model.type == goalType.Targeted">
-        <mat-label>Target Amount</mat-label>
+        <mat-label>Target Amount ({{ _global.getCurrency() }})</mat-label>
         <input matInput [(ngModel)]="model.amount">
     </mat-form-field>
     <mat-form-field  *ngIf='model.id' >

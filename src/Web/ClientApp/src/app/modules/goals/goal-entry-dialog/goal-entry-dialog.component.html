@@ -49,7 +49,7 @@
             <mat-select [(ngModel)]="selectedWithdrawGoalItem">
                 <mat-option *ngFor="let item of goalSummary.items" [value]="item.id">
                     <span>{{item.name}}</span> |
-                    <small>Available: {{item.availableToSpend | number:'1.2-2' }}</small>
+                    <small>Available: {{ _global.getCurrency() }} {{item.availableToSpend | number:'1.2-2' }}</small>
                 </mat-option>
             </mat-select>
         </mat-form-field>

@@ -43,7 +43,7 @@
                         <span style="font-size: small;">{{element.name}}</span>
                     </div>
                     <span style="font-size: small; font-weight: bold;" [ngClass]="element.type == entryType.Deposit ? 'color-plus' : 'color-minus'" >
-                        {{ element.type == entryType.Withdraw ? "-" : "" }} {{element.amount | number:'1.2-2'  }}
+                        {{ element.type == entryType.Withdraw ? "-" : "" }} {{ _global.getCurrency() }} {{element.amount | number:'1.2-2'  }}
                     </span>
                 </div>
         </td>
@@ -78,7 +78,7 @@
                     <mat-list-item role="listitem" *ngFor="let item of element.goalEntries">
                         <mat-icon matListItemIcon>{{ element.type == entryType.Deposit ? "add" : "remove" }}</mat-icon>
                         <div matListItemTitle>
-                            {{ item.goal.name }}: RM {{ item.amount | number:'1.2-2' }}
+                            {{ item.goal.name }}: {{ _global.getCurrency() }} {{ item.amount | number:'1.2-2' }}
                         </div>
                     </mat-list-item>
                 </mat-list>

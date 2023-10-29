@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Globals } from 'src/app/services/globals';
 
 @Component({
   selector: 'app-sheet-summary-utilization-list',
@@ -10,4 +11,6 @@ export class SheetSummaryUtilizationListComponent {
   @Input() title: string;
   @Input() description: string;
   @Input() total: number;
+
+  constructor(public _global: Globals){}
 }

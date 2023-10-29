@@ -7,7 +7,7 @@
                     Current Balance
                 </span>
                 <span style="font-size: 16pt">
-                    {{ model?.sheet?.currentBalance | number:'1.2-2' }}
+                    {{ _global.getCurrency() }} {{ model?.sheet?.currentBalance | number:'1.2-2' }}
                 </span>
             </div>
         </mat-card-content>
@@ -20,7 +20,7 @@
                     Incoming Expenses
                 </span>
                 <span style="font-size: 16pt">
-                    {{ model?.sheet?.incomingExpenses | number:'1.2-2' }}
+                    {{ _global.getCurrency() }} {{ model?.sheet?.incomingExpenses | number:'1.2-2' }}
                 </span>
             </div>
             <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -28,7 +28,7 @@
                     Total Spent
                 </span>
                 <span style="font-size: 16pt">
-                    {{ model?.sheet?.totalExpenses | number:'1.2-2' }}
+                    {{ _global.getCurrency() }} {{ model?.sheet?.totalExpenses | number:'1.2-2' }}
                 </span>
             </div>
         </mat-card-content>
@@ -41,7 +41,7 @@
                     Incoming Earning
                 </span>
                 <span style="font-size: 16pt">
-                    {{ model?.sheet?.incomingEarning | number:'1.2-2' }}
+                    {{ _global.getCurrency() }} {{ model?.sheet?.incomingEarning | number:'1.2-2' }}
                 </span>
             </div>
             <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -49,7 +49,7 @@
                     Total Earned
                 </span>
                 <span style="font-size: 16pt">
-                    {{ model?.sheet?.totalEarning | number:'1.2-2' }}
+                    {{ _global.getCurrency() }} {{ model?.sheet?.totalEarning | number:'1.2-2' }}
                 </span>
             </div>
         </mat-card-content>
@@ -62,7 +62,7 @@
                     Balance Projection
                 </span>
                 <span style="font-size: 16pt">
-                    {{ ((model?.sheet?.totalEarning + model?.sheet?.incomingEarning) - (model?.sheet?.incomingExpenses
+                    {{ _global.getCurrency() }} {{ ((model?.sheet?.totalEarning + model?.sheet?.incomingEarning) - (model?.sheet?.incomingExpenses
                     +
                     model?.sheet?.totalExpenses)) | number:'1.2-2' }}
                 </span>
