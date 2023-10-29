@@ -1,7 +1,6 @@
 {
   "name": "LLocate.pro",
   "short_name": "LLocate",
-  "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",

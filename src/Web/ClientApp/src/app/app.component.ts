@@ -90,9 +90,9 @@ export class AppComponent {
       overlayContainerClasses.add(themeCss);
       this.cssClass = themeCss;
       let themeObj = this.themingService.themes.find(x => x.class == theme);
-      const manifest = document.querySelector('#manifest');
+      const manifest = document.querySelector('#themecolor');
       if (manifest) {
-        manifest.setAttribute('theme-color', themeObj.primary);
+        manifest.setAttribute('content', themeObj.primary);
       }
     }
   }
