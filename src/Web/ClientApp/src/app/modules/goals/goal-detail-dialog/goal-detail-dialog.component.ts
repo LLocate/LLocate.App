@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Globals } from 'src/app/services/globals';
 import { MaterialModule } from 'src/app/shared/material.module';
 import { Goal, GoalType } from 'src/app/web-api-client';
 
@@ -14,9 +15,10 @@ export class GoalDetailDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<GoalDetailDialogComponent>,
+    public _global: Globals,
     @Inject(MAT_DIALOG_DATA) public data: Goal,
   ) {
-    if(data){
+    if (data) {
       this.model = data;
     }
   }
@@ -25,8 +27,8 @@ export class GoalDetailDialogComponent {
     this.dialogRef.close();
   }
 
-  submit(): void{
-    if(this.model.type == this.goalType.Progressive){
+  submit(): void {
+    if (this.model.type == this.goalType.Progressive) {
       this.model.targetDate = null;
       this.model.startDate = null;
     }
