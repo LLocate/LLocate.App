@@ -1,0 +1,15 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative; /* Add relative positioning to the host */
+  }
+  
+  #lottieContainer {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    position: absolute; /* Add absolute positioning to the lottieContainer */
+    transform: translate(-50%, -50%); /* Center the lottieContainer */
+  }

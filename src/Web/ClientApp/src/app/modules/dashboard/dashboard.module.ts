@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard.component';
 import { DashboardRouting } from './dashboard.routing';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { LottieAnimationComponent } from 'src/app/shared/components/lottie-animation/lottie-animation.component';
 
 
 
@@ -15,7 +16,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     DashboardRouting,
     SharedModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    LottieAnimationComponent
   ]
 })
 export class DashboardModule { }
