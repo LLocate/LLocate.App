@@ -1,52 +1,55 @@
 <h1 mat-dialog-title>{{ !model.id ? 'Add New Item' : 'Update Item' }}</h1>
 <div mat-dialog-content fxLayoutGap="10px">
-    <mat-form-field *ngIf="model.isInstallment">
+    <mat-form-field *ngIf="!model.isInstallment">
         <mat-label>Entry Type</mat-label>
         <mat-select [(ngModel)]='model.entryType'>
-            <mat-option *ngFor="let item of sheetItemEntryType | enumpipe" [value]="item.key">{{item.value}}</mat-option>
+            <mat-option *ngFor="let item of sheetItemEntryType | enumpipe"
+                [value]="item.key">{{item.value}}</mat-option>
         </mat-select>
     </mat-form-field>
-    <mat-form-field  *ngIf="model.entryType == sheetItemEntryType.Payment">
+    <mat-form-field *ngIf="model.entryType == sheetItemEntryType.Payment">
         <mat-label>Category</mat-label>
         <mat-select [(ngModel)]='model.category'>
             <mat-option *ngFor="let item of sheetItemCategory | enumpipe" [value]="item.key">{{item.value}}</mat-option>
         </mat-select>
     </mat-form-field>
-    <mat-form-field >
+    <mat-form-field>
         <mat-label>Name</mat-label>
         <input matInput [(ngModel)]="model.name">
     </mat-form-field>
-    <mat-form-field >
+    <mat-form-field>
         <mat-label>Description</mat-label>
         <input matInput [(ngModel)]="model.description">
     </mat-form-field>
-    <mat-form-field >
+    <mat-form-field>
         <mat-label>Allocated Amount (RM)</mat-label>
         <input matInput [(ngModel)]="model.allocated">
     </mat-form-field>
-    <mat-form-field  *ngIf="model.isInstallment">
+    <mat-form-field *ngIf="model.isInstallment">
         <mat-label>From Month</mat-label>
         <input matInput [(ngModel)]="model.installmentStartMonth">
     </mat-form-field>
-    <mat-form-field  *ngIf="model.isInstallment">
+    <mat-form-field *ngIf="model.isInstallment">
         <mat-label>From Year</mat-label>
         <input matInput [(ngModel)]="model.installmentStartYear">
     </mat-form-field>
-    <mat-form-field  *ngIf="model.isInstallment">
+    <mat-form-field *ngIf="model.isInstallment">
         <mat-label>To Month</mat-label>
         <input matInput [(ngModel)]="model.installmentEndMonth">
     </mat-form-field>
-    <mat-form-field  *ngIf="model.isInstallment">
+    <mat-form-field *ngIf="model.isInstallment">
         <mat-label>To Year</mat-label>
         <input matInput [(ngModel)]="model.installmentEndYear">
     </mat-form-field>
 
-    <mat-slide-toggle *ngIf='model.id' class="example-margin" color="primary" [checked]="!model.isDeactivated" (change)="model.isDeactivated = !model.isDeactivated">
+    <mat-slide-toggle *ngIf='model.id' class="example-margin" color="primary" [checked]="!model.isDeactivated"
+        (change)="model.isDeactivated = !model.isDeactivated">
         Active
     </mat-slide-toggle>
 </div>
 <div mat-dialog-actions>
-    <button mat-button mat-dialog-close >Cancel</button>
-    <button mat-raised-button color="primary" [disabled]="isUpdating" (click)='upsert()' cdkFocusInitial>{{ model.id > 0 ? 'Update' :
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" [disabled]="isUpdating" (click)='upsert()' cdkFocusInitial>{{ model.id > 0
+        ? 'Update' :
         'Create' }}</button>
 </div>
