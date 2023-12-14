@@ -1,88 +1,86 @@
 <div fxLayout='row' fxLayoutGap="5px">
-    <button mat-raised-button color="primary" (click)="openGoalDialog()">Add Goal</button>
-    <button mat-raised-button color="primary" (click)="openDistributionDialog()"><mat-icon>tune</mat-icon>Set Distribution %</button>
+  <button mat-raised-button color="primary" (click)="openGoalDialog()">Add Goal</button>
+  <button mat-raised-button color="primary" (click)="openDistributionDialog()"><mat-icon>tune</mat-icon>Set Distribution %</button>
 </div>
 
-<app-page-loader *ngIf="isLoading"></app-page-loader>
-<table *ngIf="!isLoading" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
+@if (isLoading) {
+  <app-page-loader></app-page-loader>
+}
+@if (!isLoading) {
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!--- Note that these columns can be defined in any order.
-  The actual rendered columns are set as a property on the row definition" -->
-
+    The actual rendered columns are set as a property on the row definition" -->
     <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef> No. </th>
-        <td mat-cell *matCellDef="let element; let i = index;"> {{i + 1}} </td>
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element; let i = index;"> {{i + 1}} </td>
     </ng-container>
-
     <ng-container matColumnDef="type">
-        <th mat-header-cell *matHeaderCellDef> Type </th>
-        <td mat-cell *matCellDef="let element"> {{ goalType[element.type] }} </td>
+      <th mat-header-cell *matHeaderCellDef> Type </th>
+      <td mat-cell *matCellDef="let element"> {{ goalType[element.type] }} </td>
     </ng-container>
-
     <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
-
     <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef> Description </th>
-        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
     </ng-container>
-
     <ng-container matColumnDef="startDate">
-        <th mat-header-cell *matHeaderCellDef> Start Date </th>
-        <td mat-cell *matCellDef="let element"> {{element.startDate | date:'d MMM yyyy' }} </td>
+      <th mat-header-cell *matHeaderCellDef> Start Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.startDate | date:'d MMM yyyy' }} </td>
     </ng-container>
-
     <ng-container matColumnDef="targetDate">
-        <th mat-header-cell *matHeaderCellDef> Target Date </th>
-        <td mat-cell *matCellDef="let element"> {{element.targetDate | date:'d MMM yyyy' }} </td>
+      <th mat-header-cell *matHeaderCellDef> Target Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.targetDate | date:'d MMM yyyy' }} </td>
     </ng-container>
-
     <ng-container matColumnDef="amount">
-        <th mat-header-cell *matHeaderCellDef> Amount ({{ _global.getCurrency() }})</th>
-        <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+      <th mat-header-cell *matHeaderCellDef> Amount ({{ _global.getCurrency() }})</th>
+      <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
     </ng-container>
-
     <ng-container matColumnDef="percentage">
-        <th mat-header-cell *matHeaderCellDef> Distribution % </th>
-        <td mat-cell *matCellDef="let element"> {{element.defaultContributionPercentage}} </td>
+      <th mat-header-cell *matHeaderCellDef> Distribution % </th>
+      <td mat-cell *matCellDef="let element"> {{element.defaultContributionPercentage}} </td>
     </ng-container>
-
     <ng-container matColumnDef="mobile">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element">
-            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
-                <mat-icon *ngIf="element.isCompleted">check</mat-icon>
-                <div fxLayout="column" style="text-wrap: wrap; width:100%;">
-                    <span style="font-weight: bold;">[{{ goalType[element.type] }}] {{element.name}}</span>
-                    <span style="font-size: small;">{{element.description}}</span>
-                    <span style="font-size: small;" *ngIf="element.startDate || element.targetDate">
-                        {{!element.startDate ? "No start date" : element.startDate | date:'d MMM yyyy' }} -
-                        {{!element.targetDate ? "No target date" : element.targetDate | date:'d MMM yyyy' }}</span>
-                    <span style="font-size: small;" *ngIf="element.type == goalType.Progressive">Target Amount :
-                        {{ _global.getCurrency() }} {{element.amount | number:'1.2-2' }}</span>
-                    <span style="font-size: small;">Distribution : {{element.defaultContributionPercentage |
-                        number:'1.2-2' }}%</span>
-                </div>
-            </div>
-        </td>
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+          @if (element.isCompleted) {
+            <mat-icon>check</mat-icon>
+          }
+          <div fxLayout="column" style="text-wrap: wrap; width:100%;">
+            <span style="font-weight: bold;">[{{ goalType[element.type] }}] {{element.name}}</span>
+            <span style="font-size: small;">{{element.description}}</span>
+            @if (element.startDate || element.targetDate) {
+              <span style="font-size: small;">
+                {{!element.startDate ? "No start date" : element.startDate | date:'d MMM yyyy' }} -
+              {{!element.targetDate ? "No target date" : element.targetDate | date:'d MMM yyyy' }}</span>
+            }
+            @if (element.type == goalType.Progressive) {
+              <span style="font-size: small;">Target Amount :
+              {{ _global.getCurrency() }} {{element.amount | number:'1.2-2' }}</span>
+            }
+            <span style="font-size: small;">Distribution : {{element.defaultContributionPercentage |
+            number:'1.2-2' }}%</span>
+          </div>
+        </div>
+      </td>
     </ng-container>
-
     <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef> </th>
-        <td mat-cell *matCellDef="let element">
-            <!-- <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let element">
+        <!-- <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
         <mat-icon>delete</mat-icon>
-    </button> -->
-            <button mat-icon-button (click)="openGoalDialog(element)" color="primary"
-                aria-label="Example icon button with a heart icon">
-                <mat-icon>edit</mat-icon>
-            </button>
-        </td>
-    </ng-container>
-
-    <tr mat-header-row [hidden]="_global.mobileQuery.matches"
-        *matHeaderRowDef="_global.mobileQuery.matches ? displayedColumnsM : displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: _global.mobileQuery.matches ? displayedColumnsM : displayedColumns;"></tr>
+      </button> -->
+      <button mat-icon-button (click)="openGoalDialog(element)" color="primary"
+        aria-label="Example icon button with a heart icon">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+  <tr mat-header-row [hidden]="_global.mobileQuery.matches"
+  *matHeaderRowDef="_global.mobileQuery.matches ? displayedColumnsM : displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: _global.mobileQuery.matches ? displayedColumnsM : displayedColumns;"></tr>
 </table>
+}

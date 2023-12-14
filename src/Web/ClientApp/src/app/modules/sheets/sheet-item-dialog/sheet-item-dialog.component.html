@@ -1,32 +1,38 @@
 <h1 mat-dialog-title>{{ !model.id ? 'Add New Item' : 'Update Item' }}</h1>
 <div mat-dialog-content fxLayoutGap="10px">
+  <mat-form-field >
+    <mat-label>Entry Type</mat-label>
+    <mat-select [(ngModel)]='model.entryType'>
+      @for (item of sheetItemEntryType | enumpipe; track item) {
+        <mat-option [value]="item.key">{{item.value}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  @if (model.entryType == sheetItemEntryType.Payment) {
     <mat-form-field >
-        <mat-label>Entry Type</mat-label>
-        <mat-select [(ngModel)]='model.entryType'>
-            <mat-option *ngFor="let item of sheetItemEntryType | enumpipe" [value]="item.key">{{item.value}}</mat-option>
-        </mat-select>
+      <mat-label>Category</mat-label>
+      <mat-select [(ngModel)]='model.category'>
+        @for (item of sheetItemCategory | enumpipe; track item) {
+          <mat-option [value]="item.key">{{item.value}}</mat-option>
+        }
+      </mat-select>
     </mat-form-field>
-    <mat-form-field  *ngIf="model.entryType == sheetItemEntryType.Payment">
-        <mat-label>Category</mat-label>
-        <mat-select [(ngModel)]='model.category'>
-            <mat-option *ngFor="let item of sheetItemCategory | enumpipe" [value]="item.key">{{item.value}}</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field >
-        <mat-label>Name</mat-label>
-        <input matInput [(ngModel)]="model.name">
-    </mat-form-field>
-    <mat-form-field >
-        <mat-label>Description</mat-label>
-        <input matInput [(ngModel)]="model.description">
-    </mat-form-field>
-    <mat-form-field >
-        <mat-label>Allocated Amount (RM)</mat-label>
-        <input matInput [(ngModel)]="model.allocated">
-    </mat-form-field>
+  }
+  <mat-form-field >
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="model.name">
+  </mat-form-field>
+  <mat-form-field >
+    <mat-label>Description</mat-label>
+    <input matInput [(ngModel)]="model.description">
+  </mat-form-field>
+  <mat-form-field >
+    <mat-label>Allocated Amount (RM)</mat-label>
+    <input matInput [(ngModel)]="model.allocated">
+  </mat-form-field>
 </div>
 <div mat-dialog-actions>
-    <button mat-button mat-dialog-close >Cancel</button>
-    <button mat-raised-button color="primary" [disabled]="isUpdating" (click)='upsert()' cdkFocusInitial>{{ model.id > 0 ? 'Update' :
-        'Create' }}</button>
+  <button mat-button mat-dialog-close >Cancel</button>
+  <button mat-raised-button color="primary" [disabled]="isUpdating" (click)='upsert()' cdkFocusInitial>{{ model.id > 0 ? 'Update' :
+  'Create' }}</button>
 </div>

@@ -1,21 +1,25 @@
 <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="10px">
 
-    <mat-card appearance="outlined" fxFlex="45" class="mt-2" fxLayout="column">
-        <mat-card-content>
-            <app-chart-advanced-pie *ngIf="!expensesChartLoading" [title]="'Expenses'"
-                [dataSource]="expensesChart"></app-chart-advanced-pie>
-        </mat-card-content>
-    </mat-card>
+  <mat-card appearance="outlined" fxFlex="45" class="mt-2" fxLayout="column">
+    <mat-card-content>
+      @if (!expensesChartLoading) {
+        <app-chart-advanced-pie [title]="'Expenses'"
+        [dataSource]="expensesChart"></app-chart-advanced-pie>
+      }
+    </mat-card-content>
+  </mat-card>
 
-    <mat-card appearance="outlined" fxFlex="45" class="mt-2" fxLayout="column">
-        <mat-card-content>
-            <app-chart-advanced-pie *ngIf="!earningChartLoading" [title]="'Earning Breakdown'" [dataSource]="earningChart"></app-chart-advanced-pie>
-        </mat-card-content>
-    </mat-card>
+  <mat-card appearance="outlined" fxFlex="45" class="mt-2" fxLayout="column">
+    <mat-card-content>
+      @if (!earningChartLoading) {
+        <app-chart-advanced-pie [title]="'Earning Breakdown'" [dataSource]="earningChart"></app-chart-advanced-pie>
+      }
+    </mat-card-content>
+  </mat-card>
 
-    <!-- <mat-card fxFlex="45" class="mt-2" fxLayout="column">
-        <mat-card-content>
-            <app-chart-advanced-pie [title]="'Installment Chart'" [dataSource]="earningChart"></app-chart-advanced-pie>
-        </mat-card-content>
-    </mat-card> -->
+  <!-- <mat-card fxFlex="45" class="mt-2" fxLayout="column">
+  <mat-card-content>
+    <app-chart-advanced-pie [title]="'Installment Chart'" [dataSource]="earningChart"></app-chart-advanced-pie>
+  </mat-card-content>
+</mat-card> -->
 </div>

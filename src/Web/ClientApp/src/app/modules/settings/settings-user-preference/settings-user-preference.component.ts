@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,8 +13,8 @@ import { DarkModePreference, UpdateUserCommand, UpdateUserDto, UsersClient } fro
   standalone: true,
   imports: [
     SharedModule,
-    FormsModule,
-    CommonModule],
+    FormsModule
+],
   selector: 'app-settings-user-preference',
   templateUrl: './settings-user-preference.component.html',
   styleUrls: ['./settings-user-preference.component.css']

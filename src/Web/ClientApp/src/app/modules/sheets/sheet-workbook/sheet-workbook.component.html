@@ -1,68 +1,96 @@
 <div fxLayout="column" fxLayoutGap="10px">
-    <mat-toolbar style="margin-top: 1em" color="accent" fxLayoutAlign="space-between center">
-        <button *ngIf="!_global.mobileQuery.matches" mat-flat-button
-            [disabled]="minYearMonth.year == currentYear && minYearMonth.month == currentMonth"
-            (click)="previousMonth()"><mat-icon>arrow_back</mat-icon>Previous Month</button>
-        <button *ngIf="_global.mobileQuery.matches" mat-icon-button
-            [disabled]="minYearMonth.year == currentYear && minYearMonth.month == currentMonth"
-            (click)="previousMonth()"><mat-icon>arrow_back</mat-icon></button>
+  <mat-toolbar style="margin-top: 1em" color="accent" fxLayoutAlign="space-between center">
+    @if (!_global.mobileQuery.matches) {
+      <button mat-flat-button
+        [disabled]="minYearMonth.year == currentYear && minYearMonth.month == currentMonth"
+        (click)="previousMonth()"><mat-icon>arrow_back</mat-icon>Previous Month</button>
+      }
+      @if (_global.mobileQuery.matches) {
+        <button mat-icon-button
+          [disabled]="minYearMonth.year == currentYear && minYearMonth.month == currentMonth"
+          (click)="previousMonth()"><mat-icon>arrow_back</mat-icon></button>
+        }
         <div fxLayout="row" fxLayoutGap="5px">
-            <button mat-flat-button [matMenuTriggerFor]="menu1">{{ currentYear }}</button>
-            <mat-menu #menu1="matMenu">
-                <button mat-menu-item *ngFor="let year of years" (click)="yearChanged(year)">{{year}}</button>
-            </mat-menu>
-            <button mat-flat-button [matMenuTriggerFor]="menu2">{{ currentMonthWithName?.name }}</button>
-            <mat-menu #menu2="matMenu">
-                <button mat-menu-item *ngFor="let month of months"
-                    (click)="monthChanged(month.number)">{{month.name}}</button>
-            </mat-menu>
+          <button mat-flat-button [matMenuTriggerFor]="menu1">{{ currentYear }}</button>
+          <mat-menu #menu1="matMenu">
+            @for (year of years; track year) {
+              <button mat-menu-item (click)="yearChanged(year)">{{year}}</button>
+            }
+          </mat-menu>
+          <button mat-flat-button [matMenuTriggerFor]="menu2">{{ currentMonthWithName?.name }}</button>
+          <mat-menu #menu2="matMenu">
+            @for (month of months; track month) {
+              <button mat-menu-item
+              (click)="monthChanged(month.number)">{{month.name}}</button>
+            }
+          </mat-menu>
         </div>
-        <button *ngIf="!_global.mobileQuery.matches" mat-flat-button
+        @if (!_global.mobileQuery.matches) {
+          <button mat-flat-button
             [disabled]="maxYearMonth.year == currentYear && maxYearMonth.month == currentMonth"
             (click)="nextMonth()">Next Month <mat-icon>arrow_forward</mat-icon></button>
-        <button *ngIf="_global.mobileQuery.matches" mat-icon-button
-            [disabled]="maxYearMonth.year == currentYear && maxYearMonth.month == currentMonth"
-            (click)="nextMonth()"><mat-icon>arrow_forward</mat-icon></button>
+          }
+          @if (_global.mobileQuery.matches) {
+            <button mat-icon-button
+              [disabled]="maxYearMonth.year == currentYear && maxYearMonth.month == currentMonth"
+              (click)="nextMonth()"><mat-icon>arrow_forward</mat-icon></button>
+            }
 
-    </mat-toolbar>
-    <app-page-loader *ngIf="isLoading"></app-page-loader>
-    <div *ngIf="!isLoading && model.sheet.id <= 0" style="min-height: 300px;" fxLayout="column" fxLayoutGap="10px"
-        fxLayoutAlign="center center">
-        <h3>You haven't create sheet for the selected month.</h3>
-        <button mat-raised-button color="primary" (click)="generateSheet()">Click Here to Generate</button>
-    </div>
-    <div *ngIf="!isLoading && model.sheet.id > 0" fxLayout="row" fxLayoutAlign="space-between center"
-        fxLayoutGap="10px">
-        <button mat-flat-button color="primary" (click)="openSheetItemDialog()">Add New Item</button>
-        <button *ngIf="_global.mobileQuery.matches" mat-icon-button color="warn" (click)="deleteSheetDialog()"><mat-icon>delete</mat-icon></button>
-        <button *ngIf="!_global.mobileQuery.matches" mat-flat-button color="warn" (click)="deleteSheetDialog()"><mat-icon>delete</mat-icon> Delete Sheet</button>
-    </div>
-    <mat-accordion *ngIf="!isLoading && model.sheet.id > 0" class="example-headers-align">
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
+          </mat-toolbar>
+          @if (isLoading) {
+            <app-page-loader></app-page-loader>
+          }
+          @if (!isLoading && model.sheet.id <= 0) {
+            <div style="min-height: 300px;" fxLayout="column" fxLayoutGap="10px"
+              fxLayoutAlign="center center">
+              <h3>You haven't create sheet for the selected month.</h3>
+              <button mat-raised-button color="primary" (click)="generateSheet()">Click Here to Generate</button>
+            </div>
+          }
+          @if (!isLoading && model.sheet.id > 0) {
+            <div fxLayout="row" fxLayoutAlign="space-between center"
+              fxLayoutGap="10px">
+              <button mat-flat-button color="primary" (click)="openSheetItemDialog()">Add New Item</button>
+              @if (_global.mobileQuery.matches) {
+                <button mat-icon-button color="warn" (click)="deleteSheetDialog()"><mat-icon>delete</mat-icon></button>
+              }
+              @if (!_global.mobileQuery.matches) {
+                <button mat-flat-button color="warn" (click)="deleteSheetDialog()"><mat-icon>delete</mat-icon> Delete Sheet</button>
+              }
+            </div>
+          }
+          @if (!isLoading && model.sheet.id > 0) {
+            <mat-accordion class="example-headers-align">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
                     Summary
-                </mat-panel-title>
-            </mat-expansion-panel-header>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-sheet-summary (refreshSheet)="getSheet()" [model]="model"></app-sheet-summary>
+              </mat-expansion-panel>
+            </mat-accordion>
+          }
 
-            <app-sheet-summary (refreshSheet)="getSheet()" [model]="model"></app-sheet-summary>
-
-        </mat-expansion-panel>
-    </mat-accordion>
-
-    <mat-tab-group *ngIf="!isLoading && model.sheet.id > 0" mat-stretch-tabs="false" mat-align-tabs="start" backgroundColor="accent">
-        <mat-tab label="Expenses">
-            <ng-template matTabContent>
-                <app-sheet-table *ngIf="!isLoading" (refreshSheet)="getSheet()" [dataSource]="model.payments"
+          @if (!isLoading && model.sheet.id > 0) {
+            <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" backgroundColor="accent">
+              <mat-tab label="Expenses">
+                <ng-template matTabContent>
+                  @if (!isLoading) {
+                    <app-sheet-table (refreshSheet)="getSheet()" [dataSource]="model.payments"
                     [month]="currentMonth" [title]="'Payments'" [year]="currentYear"></app-sheet-table>
-            </ng-template>
-        </mat-tab>
-        <mat-tab label="Earnings">
-            <ng-template matTabContent>
-                <app-sheet-table *ngIf="!isLoading" (refreshSheet)="getSheet()" [dataSource]="model.earnings"
+                  }
+                </ng-template>
+              </mat-tab>
+              <mat-tab label="Earnings">
+                <ng-template matTabContent>
+                  @if (!isLoading) {
+                    <app-sheet-table (refreshSheet)="getSheet()" [dataSource]="model.earnings"
                     [month]="currentMonth" [title]="'Earnings'" [year]="currentYear"></app-sheet-table>
-            </ng-template>
-        </mat-tab>
-    </mat-tab-group>
+                  }
+                </ng-template>
+              </mat-tab>
+            </mat-tab-group>
+          }
 
-</div>
+        </div>

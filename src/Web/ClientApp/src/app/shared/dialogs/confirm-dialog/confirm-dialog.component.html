@@ -1,9 +1,13 @@
 <h1 mat-dialog-title>{{ title }}</h1>
-<div mat-dialog-content *ngIf='isHtmlContent' [innerHTML]='content'>
-</div>
-<div mat-dialog-content *ngIf='!isHtmlContent'>
+@if (isHtmlContent) {
+  <div mat-dialog-content [innerHTML]='content'>
+  </div>
+}
+@if (!isHtmlContent) {
+  <div mat-dialog-content>
     {{ content }}
-</div>
+  </div>
+}
 <div mat-dialog-actions [fxLayoutAlign]='actionAlign'>
   <button mat-flat-button mat-dialog-close>{{ rejectButton }}</button>
   <button mat-raised-button color='primary' [mat-dialog-close]="true" cdkFocusInitial>{{ acceptButton }}</button>

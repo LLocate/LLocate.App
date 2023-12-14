@@ -1,29 +1,35 @@
 <h1 mat-dialog-title>Set Distribution Percentage</h1>
-<div mat-dialog-content *ngIf="!loading">
+@if (!loading) {
+  <div mat-dialog-content>
     <h2>Available Percentage: {{ availablePercentage() }}</h2>
-    <div fxLayout="column" *ngFor="let model of models; let i = index">
+    @for (model of models; track model; let i = $index) {
+      <div fxLayout="column">
         <div fxLayout="column">
-            <div fxLayout="row" fxLayoutAlign="space-between center">
-                <span>{{ i + 1 }}.{{model.name}}</span>
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <span>{{ i + 1 }}.{{model.name}}</span>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap='15'>
+            <mat-slider class="example-margin" [max]="100" [min]="0" fxFlex="75">
+              <input matSliderThumb [(ngModel)]="model.defaultContributionPercentage" #slider>
+            </mat-slider>
+            <mat-form-field fxFlex="20">
+              <mat-label>Percentage %</mat-label>
+              <input matInput type="number" min="0" [max]="availablePercentage()"
+                [(ngModel)]="model.defaultContributionPercentage">
+              </mat-form-field>
             </div>
-            <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap='15'>
-                <mat-slider class="example-margin" [max]="100" [min]="0" fxFlex="75">
-                    <input matSliderThumb [(ngModel)]="model.defaultContributionPercentage" #slider>
-                </mat-slider>
-                <mat-form-field fxFlex="20">
-                    <mat-label>Percentage %</mat-label>
-                    <input matInput type="number" min="0" [max]="availablePercentage()"
-                        [(ngModel)]="model.defaultContributionPercentage">
-                </mat-form-field>
-            </div>
+          </div>
         </div>
+      }
     </div>
-</div>
-<div mat-dialog-content *ngIf="loading">
-    <app-page-loader></app-page-loader>
-</div>
-<div mat-dialog-actions align="end">
+  }
+  @if (loading) {
+    <div mat-dialog-content>
+      <app-page-loader></app-page-loader>
+    </div>
+  }
+  <div mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>
     <button mat-raised-button color="primary" (click)="update()" [disabled]="isUpdating || availablePercentage() < 0"
-        cdkFocusInitial>Set</button>
-</div>
+    cdkFocusInitial>Set</button>
+  </div>

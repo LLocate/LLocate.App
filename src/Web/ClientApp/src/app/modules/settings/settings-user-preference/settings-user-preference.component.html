@@ -1,53 +1,59 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-    <div fxLayout="column" fxLayoutGap="1em">
-        <div fxLayout="column" fxFlex="100">
-            <mat-label>Basic Information</mat-label>
-            <div fxLayout="row wrap" fxFlex="100" fxLayout.xs="column" fxLayoutGap="5px">
-                <mat-form-field appearance="fill" fxFlex="33">
-                    <mat-label>Email</mat-label>
-                    <input matInput type="text" [value]="_global.user.email" disabled>
-                </mat-form-field>
+  <div fxLayout="column" fxLayoutGap="1em">
+    <div fxLayout="column" fxFlex="100">
+      <mat-label>Basic Information</mat-label>
+      <div fxLayout="row wrap" fxFlex="100" fxLayout.xs="column" fxLayoutGap="5px">
+        <mat-form-field appearance="fill" fxFlex="33">
+          <mat-label>Email</mat-label>
+          <input matInput type="text" [value]="_global.user.email" disabled>
+        </mat-form-field>
 
-                <mat-form-field appearance="fill" fxFlex="33">
-                    <mat-label>Name</mat-label>
-                    <input matInput type="text" formControlName="name">
-                </mat-form-field>
+        <mat-form-field appearance="fill" fxFlex="33">
+          <mat-label>Name</mat-label>
+          <input matInput type="text" formControlName="name">
+        </mat-form-field>
 
-                <mat-form-field appearance="fill" fxFlex="33">
-                    <mat-label>Select Currency</mat-label>
-                    <mat-select formControlName="currencyCode">
-                        <mat-option *ngFor="let currency of currencies" [value]="currency.code">
-                            {{ currency.name }} - ({{ currency.symbol }})
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-        </div>
-        <div fxLayout="column" fxFlex="100">
-            <mat-label>Themes</mat-label>
-            <mat-radio-group aria-label="Select an option" formControlName="defaultTheme">
-                <mat-radio-button *ngFor="let item of themes" [value]="item.class">
-                    <div style="width:100%" fxLayout="column" fxLayoutAlign="space-between center" fxLayoutGap="5px">
-                        <span>{{item.name}}</span>
-                        <div fxLayout="row">
-                            <app-theme-preview-svg style="width:60px; height: 60px;" [primary]="item.primary" [accent]="item.accent" [background]="item.lightBg">
-                            </app-theme-preview-svg>
-                            <app-theme-preview-svg style="width:60px; height: 60px;"[primary]="item.primary" [accent]="item.accent" [background]="item.darkBg">
-                            </app-theme-preview-svg>
-                        </div>
-                    </div>
-                </mat-radio-button>
-            </mat-radio-group>
-        </div>
-        <div fxLayout="column" fxFlex="100">
-            <mat-label>Dark Mode Preference</mat-label>
-            <mat-radio-group aria-label="Select an option" formControlName="darkModePreference">
-                <mat-radio-button *ngFor="let item of darkModePreference | enumpipe" [value]="item.key">
-                    {{item.value}}
-                </mat-radio-button>
-            </mat-radio-group>
-        </div>
-
+        <mat-form-field appearance="fill" fxFlex="33">
+          <mat-label>Select Currency</mat-label>
+          <mat-select formControlName="currencyCode">
+            @for (currency of currencies; track currency) {
+              <mat-option [value]="currency.code">
+                {{ currency.name }} - ({{ currency.symbol }})
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
-    <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">{{ submitButtonText }}</button>
+    <div fxLayout="column" fxFlex="100">
+      <mat-label>Themes</mat-label>
+      <mat-radio-group aria-label="Select an option" formControlName="defaultTheme">
+        @for (item of themes; track item) {
+          <mat-radio-button [value]="item.class">
+            <div style="width:100%" fxLayout="column" fxLayoutAlign="space-between center" fxLayoutGap="5px">
+              <span>{{item.name}}</span>
+              <div fxLayout="row">
+                <app-theme-preview-svg style="width:60px; height: 60px;" [primary]="item.primary" [accent]="item.accent" [background]="item.lightBg">
+                </app-theme-preview-svg>
+                <app-theme-preview-svg style="width:60px; height: 60px;"[primary]="item.primary" [accent]="item.accent" [background]="item.darkBg">
+                </app-theme-preview-svg>
+              </div>
+            </div>
+          </mat-radio-button>
+        }
+      </mat-radio-group>
+    </div>
+    <div fxLayout="column" fxFlex="100">
+      <mat-label>Dark Mode Preference</mat-label>
+      <mat-radio-group aria-label="Select an option" formControlName="darkModePreference">
+        @for (item of darkModePreference | enumpipe; track item) {
+          <mat-radio-button [value]="item.key">
+            {{item.value}}
+          </mat-radio-button>
+        }
+      </mat-radio-group>
+    </div>
+
+  </div>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">{{ submitButtonText }}</button>
 </form>

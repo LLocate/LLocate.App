@@ -1,87 +1,105 @@
 <div class="app-container" [class.example-is-mobile]="_global.mobileQuery.matches">
-    <mat-toolbar color='primary' class="mat-elevation-z6" style="position: sticky; top: 0;z-index: 999;">
-        <button mat-icon-button *ngIf="_global.user && _global.user.isCompleteOnboarding && !isLoadingUser" (click)="snav.toggle()">
-            <mat-icon>menu</mat-icon>
-        </button>
-        <div fxLayout="row" fxLayoutAlign="space-between center" style="width: 100%;">
-            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-                <div class="logo" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
-                    <a [routerLink]="['/']" class="simple-text">
-                        <img src="assets/icons/icon-white-nobg.svg" style="height: 40px" />
-                    </a>
-                    <span>|</span>
-                    <span>{{ _global.title }}</span>
-                </div>
-            </div>
-            <div *ngIf="_global.user && !isLoadingUser" fxLayoutAlign="center center" fxLayoutGap="5px">
-                <app-theme-toggle></app-theme-toggle>
-                <button mat-mini-fab [matMenuTriggerFor]="menu">
-                    <mat-icon>person</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
-
-                    <button mat-menu-item readonly disableRipple class="user-name">
-                        Hello, {{ _global.user.name }}
-                    </button>
-                    <button mat-menu-item (click)="manageAccount()">
-                        <mat-icon>manage_accounts</mat-icon>
-                        <span>My Account</span>
-                    </button>
-                    <button mat-menu-item (click)="logout()">
-                        <mat-icon>logout</mat-icon>
-                        <span>Logout</span>
-                    </button>
-                </mat-menu>
-            </div>
-            <div *ngIf="!_global.user && !isLoadingUser" fxLayoutAlign="center center" fxLayoutGap="5px">
-                <app-theme-toggle></app-theme-toggle>
-                <button mat-raised-button (click)="login()">
-                    <mat-icon>login</mat-icon> Login
-                </button>
-            </div>
+  <mat-toolbar color='primary' class="mat-elevation-z6" style="position: sticky; top: 0;z-index: 999;">
+    @if (_global.user && _global.user.isCompleteOnboarding && !isLoadingUser) {
+      <button mat-icon-button (click)="snav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    }
+    <div fxLayout="row" fxLayoutAlign="space-between center" style="width: 100%;">
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+        <div class="logo" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
+          <a [routerLink]="['/']" class="simple-text">
+            <img src="assets/icons/icon-white-nobg.svg" style="height: 40px" />
+          </a>
+          <span>|</span>
+          <span>{{ _global.title }}</span>
         </div>
-    </mat-toolbar>
+      </div>
+      @if (_global.user && !isLoadingUser) {
+        <div fxLayoutAlign="center center" fxLayoutGap="5px">
+          <app-theme-toggle></app-theme-toggle>
+          <button mat-mini-fab [matMenuTriggerFor]="menu">
+            <mat-icon>person</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item readonly disableRipple class="user-name">
+              Hello, {{ _global.user.name }}
+            </button>
+            <button mat-menu-item (click)="manageAccount()">
+              <mat-icon>manage_accounts</mat-icon>
+              <span>My Account</span>
+            </button>
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>logout</mat-icon>
+              <span>Logout</span>
+            </button>
+          </mat-menu>
+        </div>
+      }
+      @if (!_global.user && !isLoadingUser) {
+        <div fxLayoutAlign="center center" fxLayoutGap="5px">
+          <app-theme-toggle></app-theme-toggle>
+          <button mat-raised-button (click)="login()">
+            <mat-icon>login</mat-icon> Login
+          </button>
+        </div>
+      }
+    </div>
+  </mat-toolbar>
 
-    <mat-sidenav-container class="sidenav-container height-100">
-        <mat-sidenav #snav [mode]="_global.mobileQuery.matches ? 'over' : 'side'"
-            [fixedInViewport]="_global.mobileQuery.matches" fixedTopGap="56" class="mat-elevation-z6">
-            <mat-nav-list>
-                <div *ngFor="let menu of _menuItem.getMenuitem()">
-                    <div *ngIf="menu.child && menu.child.length > 0;else single_item">
-                        <a mat-list-item [disableRipple]="true" color="primary" class="cursor-default">
-                            <mat-icon *ngIf="menu.icon">{{menu.icon}}</mat-icon>&nbsp; {{ menu.name }}
-                        </a>
-                        <!-- <div mat-subheader color="primary">{{ menu.name }}</div> -->
-                        <a mat-list-item (click)="_menuItem.setActiveId(child.id)"
-                            [class.font-strong]="child.id == _menuItem.activeId" [routerLink]="child.path"
-                            routerLinkActive="router-link-active" *ngFor="let child of menu.child">
-                            <div fxLayoutAlign="start start">
-                                <mat-icon style="margin-left: 1em;" *ngIf="child.icon">{{child.icon}}</mat-icon>
-                                <span>&nbsp; {{ child.name }}</span>
-                            </div>
-                        </a>
-                        <mat-divider></mat-divider>
-                    </div>
-                    <ng-template #single_item>
-                        <a mat-list-item [routerLink]="menu.path" (click)="_menuItem.setActiveId(menu.id)"
-                            [class.font-strong]="menu.id == _menuItem.activeId" routerLinkActive="router-link-active"
-                            *ngIf="menu.path">
-                            <div fxLayoutAlign="start start">
-                                <mat-icon *ngIf="menu.icon">{{menu.icon}}</mat-icon><span>&nbsp;{{ menu.name }}</span>
-                            </div>
-                        </a>
-                        <mat-divider></mat-divider>
-                    </ng-template>
+  <mat-sidenav-container class="sidenav-container height-100">
+    <mat-sidenav #snav [mode]="_global.mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="_global.mobileQuery.matches" fixedTopGap="56" class="mat-elevation-z6">
+      <mat-nav-list>
+        @for (menu of _menuItem.getMenuitem(); track menu) {
+          <div>
+            @if (menu.child && menu.child.length > 0) {
+              <div>
+                <a mat-list-item [disableRipple]="true" color="primary" class="cursor-default">
+                  @if (menu.icon) {
+                    <mat-icon>{{menu.icon}}</mat-icon>
+                    }&nbsp; {{ menu.name }}
+                  </a>
+                  <!-- <div mat-subheader color="primary">{{ menu.name }}</div> -->
+                  @for (child of menu.child; track child) {
+                    <a mat-list-item (click)="_menuItem.setActiveId(child.id)"
+                      [class.font-strong]="child.id == _menuItem.activeId" [routerLink]="child.path"
+                      routerLinkActive="router-link-active">
+                      <div fxLayoutAlign="start start">
+                        @if (child.icon) {
+                          <mat-icon style="margin-left: 1em;">{{child.icon}}</mat-icon>
+                        }
+                        <span>&nbsp; {{ child.name }}</span>
+                      </div>
+                    </a>
+                  }
+                  <mat-divider></mat-divider>
                 </div>
-            </mat-nav-list>
+              } @else {
+                @if (menu.path) {
+                  <a mat-list-item [routerLink]="menu.path" (click)="_menuItem.setActiveId(menu.id)"
+                    [class.font-strong]="menu.id == _menuItem.activeId" routerLinkActive="router-link-active"
+                    >
+                    <div fxLayoutAlign="start start">
+                      @if (menu.icon) {
+                        <mat-icon>{{menu.icon}}</mat-icon>
+                        }<span>&nbsp;{{ menu.name }}</span>
+                      </div>
+                    </a>
+                  }
+                  <mat-divider></mat-divider>
+                }
+              </div>
+            }
+          </mat-nav-list>
         </mat-sidenav>
 
         <mat-sidenav-content>
-            <div [ngClass.xs]='"p-1"' [ngClass]='"ptb-1"' [ngClass.sm]='"plr-3"' [ngClass.md]='"plr-3"'
-                [ngClass.lg]='"plr-3"' [ngClass.xl]='"plr-3"'>
-                <router-outlet></router-outlet>
-            </div>
-            <!-- <app-portal-footer style="flex-shrink: 0; height: 50px;"></app-portal-footer> -->
+          <div [ngClass.xs]='"p-1"' [ngClass]='"ptb-1"' [ngClass.sm]='"plr-3"' [ngClass.md]='"plr-3"'
+            [ngClass.lg]='"plr-3"' [ngClass.xl]='"plr-3"'>
+            <router-outlet></router-outlet>
+          </div>
+          <!-- <app-portal-footer style="flex-shrink: 0; height: 50px;"></app-portal-footer> -->
         </mat-sidenav-content>
-    </mat-sidenav-container>
-</div>
+      </mat-sidenav-container>
+    </div>

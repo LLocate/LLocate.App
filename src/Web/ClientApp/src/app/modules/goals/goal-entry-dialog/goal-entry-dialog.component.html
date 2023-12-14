@@ -1,65 +1,79 @@
 <h1 mat-dialog-title>New Entries</h1>
-<div mat-dialog-content *ngIf="!loading" fxLayoutGap="10px">
+@if (!loading) {
+  <div mat-dialog-content fxLayoutGap="10px">
     <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutGap="5px">
-        <mat-form-field>
-            <mat-label>Entry Type</mat-label>
-            <mat-select [disabled]="entry.id > 0 || sheet" [(ngModel)]='entry.type'>
-                <mat-option *ngFor="let item of entryType | enumpipe" [value]="item.key">{{item.value}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-            <mat-label>Transaction Date</mat-label>
-            <input [(ngModel)]="entry.transactionDate" matInput [matDatepicker]="picker">
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker">
-                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-            </mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Name</mat-label>
-            <input matInput [(ngModel)]="entry.name">
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Amount (RM)</mat-label>
-            <input matInput [(ngModel)]="entry.amount" type="number" step="0.01" (input)="distribute()">
-        </mat-form-field>
+      <mat-form-field>
+        <mat-label>Entry Type</mat-label>
+        <mat-select [disabled]="entry.id > 0 || sheet" [(ngModel)]='entry.type'>
+          @for (item of entryType | enumpipe; track item) {
+            <mat-option [value]="item.key">{{item.value}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Transaction Date</mat-label>
+        <input [(ngModel)]="entry.transactionDate" matInput [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="entry.name">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Amount (RM)</mat-label>
+        <input matInput [(ngModel)]="entry.amount" type="number" step="0.01" (input)="distribute()">
+      </mat-form-field>
     </div>
-    <div fxLayout="column" *ngIf="entry.type == entryType.Deposit">
+    @if (entry.type == entryType.Deposit) {
+      <div fxLayout="column">
         <h2>Goal Distribution:</h2>
-        <div *ngFor="let model of goalEntries; let i = index">
+        @for (model of goalEntries; track model; let i = $index) {
+          <div>
             <div fxLayout="column" fxLayoutGap="10px">
-                <div fxLayout="row" fxLayoutAlign="space-between center">
-                    <span>{{ i + 1 }}.{{model.goal.name}} - (Default: {{model.goal.defaultContributionPercentage}}%) </span>
-                </div>
-                <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap='15'>
-                    <mat-form-field>
-                        <mat-label>Amount</mat-label>
-                        <input matInput type="number"
-                            [(ngModel)]="model.amount"  type="number" step="0.01" >
-                    </mat-form-field>
-                </div>
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                <span>{{ i + 1 }}.{{model.goal.name}} - (Default: {{model.goal.defaultContributionPercentage}}%) </span>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap='15'>
+                <mat-form-field>
+                  <mat-label>Amount</mat-label>
+                  <input matInput type="number"
+                    [(ngModel)]="model.amount"  type="number" step="0.01" >
+                </mat-form-field>
+              </div>
             </div>
-        </div>
+          </div>
+        }
         <h2>Remaining: RM{{getRemaining()}}</h2>
-    </div>
-    <div fxLayout="column" *ngIf="entry.type == entryType.Withdraw">
+      </div>
+    }
+    @if (entry.type == entryType.Withdraw) {
+      <div fxLayout="column">
         <mat-form-field>
-            <mat-label>Withdraw From</mat-label>
-            <mat-select [(ngModel)]="selectedWithdrawGoalItem">
-                <mat-option *ngFor="let item of goalSummary.items" [value]="item.id">
-                    <span>{{item.name}}</span> |
-                    <small>Available: {{ _global.getCurrency() }} {{item.availableToSpend | number:'1.2-2' }}</small>
-                </mat-option>
-            </mat-select>
+          <mat-label>Withdraw From</mat-label>
+          <mat-select [(ngModel)]="selectedWithdrawGoalItem">
+            @for (item of goalSummary.items; track item) {
+              <mat-option [value]="item.id">
+                <span>{{item.name}}</span> |
+                <small>Available: {{ _global.getCurrency() }} {{item.availableToSpend | number:'1.2-2' }}</small>
+              </mat-option>
+            }
+          </mat-select>
         </mat-form-field>
-    </div>
-</div>
-<div mat-dialog-content *ngIf="loading">
+      </div>
+    }
+  </div>
+}
+@if (loading) {
+  <div mat-dialog-content>
     <app-page-loader></app-page-loader>
-</div>
+  </div>
+}
 <div mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-raised-button color="primary" (click)="update()" [disabled]="isUpdating || getRemaining() != 0 || entry.amount <= 0"
-        cdkFocusInitial>{{ entry.id > 0 ? "Update" : "Create" }}</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" (click)="update()" [disabled]="isUpdating || getRemaining() != 0 || entry.amount <= 0"
+  cdkFocusInitial>{{ entry.id > 0 ? "Update" : "Create" }}</button>
 </div>

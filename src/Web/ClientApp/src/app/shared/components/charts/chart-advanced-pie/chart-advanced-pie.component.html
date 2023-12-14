@@ -1,11 +1,12 @@
 
 <h4>{{title}}</h4>
 <div style="height: 200px; min-height: 200px; height: auto;">
-    <ngx-charts-advanced-pie-chart class="pie-light-text" *ngIf="!isLoading && viewXS && viewXL;else is_loading" [view]="global.mobileQuery.matches ? viewXS : viewXL" [scheme]="colorScheme" [results]="_dataSource" (select)="onSelect($event)">
+  @if (!isLoading && viewXS && viewXL) {
+    <ngx-charts-advanced-pie-chart class="pie-light-text" [view]="global.mobileQuery.matches ? viewXS : viewXL" [scheme]="colorScheme" [results]="_dataSource" (select)="onSelect($event)">
     </ngx-charts-advanced-pie-chart>
-    <ng-template #is_loading >
-        <div style="height: 300px; width:700px" fxLayoutAlign="center center">
-            <mat-spinner></mat-spinner>
-        </div>
-    </ng-template>
+  } @else {
+    <div style="height: 300px; width:700px" fxLayoutAlign="center center">
+      <mat-spinner></mat-spinner>
+    </div>
+  }
 </div>

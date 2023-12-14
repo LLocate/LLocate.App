@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Entry, EntryType, Goal, GoalEntry, GoalSummaryDto, GoalSummaryItemDto, GoalType, GoalsClient, Sheet, UpdateGoalDistributionCommand, UpsertEntryCommand } from 'src/app/web-api-client';
 import { GoalDistributionPercentageDialogComponent } from '../goal-distribution-percentage-dialog/goal-distribution-percentage-dialog.component';
 import { DecimalPipe } from '@angular/common';
+import { Globals } from 'src/app/services/globals';
 
 @Component({
   selector: 'app-goal-entry-dialog',
@@ -24,6 +25,7 @@ export class GoalEntryDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<GoalEntryDialogComponent>,
+    public _global: Globals,
     private goalClient: GoalsClient,
     private snackBar: MatSnackBar,
     private decimalPipe: DecimalPipe,
