@@ -1569,6 +1569,7 @@
           "Needs",
           "Wants",
           "Savings",
+          "Debt",
           "Others",
           "None"
         ],
@@ -1576,6 +1577,7 @@
           0,
           1,
           2,
+          3,
           98,
           99
         ]

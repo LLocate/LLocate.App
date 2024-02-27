@@ -14,7 +14,7 @@
   </mat-form-field>
   <mat-form-field >
     <mat-label>Description</mat-label>
-    <input matInput [(ngModel)]="model.description">
+    <textarea matInput [(ngModel)]="model.description"></textarea>
   </mat-form-field>
   @if (model.type == goalType.Targeted) {
     <mat-form-field class="example-full-width">

@@ -24,6 +24,7 @@ public enum SheetItemCategory
     Needs = 0,
     Wants = 1,
     Savings = 2,
+    Debt = 3,
 
     Others = 98,
     None = 99,

@@ -2,7 +2,7 @@
 <div mat-dialog-content fxLayoutGap="10px">
     <mat-form-field>
         <mat-label>Description</mat-label>
-        <input matInput [(ngModel)]="sheetItemEntry.description">
+        <textarea matInput [(ngModel)]="sheetItemEntry.description"></textarea>
     </mat-form-field>
     <mat-form-field class="example-full-width">
         <mat-label>Transaction Date</mat-label>
@@ -25,5 +25,6 @@
     <button mat-button mat-dialog-close>Cancel</button>
     <button mat-raised-button color="primary" [disabled]="isUpdating" (click)='upsert()' cdkFocusInitial>{{
         sheetItemEntry.id > 0 ? 'Update' :
-        'Create' }}</button>
+        'Create' }}
+        </button>
 </div>

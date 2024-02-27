@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{ !model.id ? 'Add New Item' : 'Update Item' }}</h1>
 <div mat-dialog-content fxLayoutGap="10px">
-  <mat-form-field >
+  <mat-form-field>
     <mat-label>Entry Type</mat-label>
     <mat-select [(ngModel)]='model.entryType'>
       @for (item of sheetItemEntryType | enumpipe; track item) {

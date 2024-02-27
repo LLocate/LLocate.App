@@ -28,6 +28,19 @@ public class UpsertSheetItemCommandHandler : IRequestHandler<UpsertSheetItemComm
 
     public async Task<SheetItem> Handle(UpsertSheetItemCommand request, CancellationToken cancellationToken)
     {
+
+        //var startDate = DateTime.Now;
+
+        //var endDate = DateTime.Now.AddMonths(15);
+        //var query = _context.Sheets;
+        //for (DateTime date = startDate; date <= endDate; date = date.AddMonths(1))
+        //{
+        //    query.Where(x => x.Month == date.Month && x.Year == date.Year);
+        //}
+
+        //var result = await query.ToListAsync(cancellationToken);
+
+
         var entity = request.Model;
         if(entity.Month <= 0 || entity.Year <= 0)
         {
