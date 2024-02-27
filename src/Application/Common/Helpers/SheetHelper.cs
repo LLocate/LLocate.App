@@ -22,6 +22,9 @@ public static class SheetHelper
         var endDate = new DateTime(sheetItemSetting.InstallmentEndYear.Value, sheetItemSetting.InstallmentEndMonth.Value, 1);
         var currentDate = new DateTime(currentYear, currentMonth, 1);
         
+        if(currentDate > endDate)
+            return (false, 0, 0);
+
         int numberOfMonths = ((endDate.Year - startDate.Year) * 12) + endDate.Month - startDate.Month;
 
         var currentMonthCheck = startDate;
